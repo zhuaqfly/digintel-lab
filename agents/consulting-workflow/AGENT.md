@@ -10,6 +10,7 @@ capabilities:
   - skill_chaining: 将前一个skill的输出作为后一个skill的输入
   - gap_detection: 识别现有skill覆盖不了的需求,调用skill-creator生成新skill
   - report_aggregation: 汇总多个skill的输出为统一报告
+  - ppt_generation: 将咨询报告转化为PPT演示文稿交付物
 available_skills:
   - domain: 1-diagnosis
     skills:
@@ -22,6 +23,7 @@ available_skills:
       - skill-creator: 生成新skill(当现有skill不足时自动调用)
       - skill-reviewer: 评审skill质量
       - report-template: 报告模板生成
+      - ppt-generation: 将报告转化为PPT演示文稿
 inputs:
   - name: 用户需求描述
     required: true
@@ -29,10 +31,16 @@ inputs:
   - name: 企业信息
     required: true
     description: 行业、规模、系统清单、数据现状等
+  - name: 输出格式
+    required: false
+    description: 报告(markdown) 或 PPT(pptx),默认同时输出两种
 outputs:
   - name: 完整咨询报告
     format: markdown
     description: 汇总所有skill输出的结构化报告
+  - name: PPT演示文稿
+    format: pptx
+    description: 可编辑的PowerPoint文件,基于咨询报告生成
   - name: 执行记录
     format: json
     description: 记录调用了哪些skill、执行顺序、各步骤输出摘要
@@ -222,9 +230,28 @@ P0:{a}项 / P1:{b}项 / P2:{c}项 / P3:{d}项
 - 某个skill执行失败 → 跳过该skill,在报告中标注"待评估"
 - skill链覆盖不了需求 → 标注"超出当前能力范围",给出人工建议方向
 - 用户需求模糊 → 先提出2-3个澄清问题
+- dashi-ppt-skill 未安装 → 仅输出markdown报告,提示用户安装后可生成PPT
+
+## PPT生成工作流
+
+当用户需要PPT交付物时,在完成报告生成后自动执行:
+
+```
+[步骤1-4: 诊断skill链执行]
+    ↓ 输出: 完整咨询报告 (markdown)
+[步骤5: ppt-generation skill]
+    → 解析报告结构 → 规划PPT页面 → 调用dashi-ppt-skill → 导出PPTX
+    ↓ 输出: 可编辑 .pptx 文件
+```
+
+用户可通过以下方式触发PPT生成:
+- 直接说"生成PPT"或"做成演示文稿"
+- 在初始需求中说明需要PPT交付物
+- 设置输出格式参数为 pptx
 
 ## 关联 Skill
 - 编排对象: `1-diagnosis/` 下全部skill + `_shared/` 下工具skill
+- PPT交付: `_shared/ppt-generation` — 将报告转化为PPT演示文稿
 - 未来扩展: 随着更多域的skill开发完成,自动纳入编排范围
 - 自我进化: 当发现skill缺口时,调用`skill-creator`生成新skill填补
 ```
