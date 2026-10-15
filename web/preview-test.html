@@ -1,0 +1,1582 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>某港口集团数智化成熟度评估报告</title>
+<style>
+:root,body.theme-red,body.theme-blue{--ink:#0f172a;--ink2:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#ffffff;--bg2:#f8fafc;--brand:#8B0000;--brand2:#C7000B;--brand3:#E63946;--accent:#ED6D00;--warn:#FCC800;--danger:#DC2626;--ok:#16A34A;--brand-rgb:199,0,11;--cover-bg:linear-gradient(135deg,#fff 0%,#fff5f5 100%);--cover-band:linear-gradient(90deg,#8B0000,#C7000B,#E63946);--end-accent:#E63946;--end-title-grad:linear-gradient(90deg,#fff,#f8b4b9);--card-hl-bg:#fff5f5;--step-bg:#fff8f8;--hl-shadow:rgba(199,0,11,.18);--hl-shadow-soft:rgba(199,0,11,.1);--bar-fill:linear-gradient(90deg,#E63946,#C7000B);--radar-fill-a:rgba(230,57,70,0.35);--radar-fill-b:rgba(199,0,11,0.22);--radar-target-stroke:#ED6D00;--s1:#DC2626;--s2:#EA580C;--s3:#CA8A04;--s4:#16A34A;--s5:#059669;--warn-bg:#FEF3C7;--warn-text:#92400E;--danger-bg:#FEE2E2;--danger-text:#991B1B;--ok-bg:#DCFCE7;--ok-text:#166534;--peer-fill:rgba(252,200,0,.08);--prio-p0-bg:#DC2626;--prio-p0-text:#fff;--prio-p1-bg:#EA580C;--prio-p1-text:#fff;--prio-p2-bg:#CA8A04;--prio-p2-text:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#e5e7eb;font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;color:var(--ink);overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#deck{width:1280px;height:720px;position:relative;background:#fff;box-shadow:0 18px 50px rgba(15,23,42,.18);overflow:hidden}
+.slide{position:absolute;inset:0;padding:40px 56px 48px;display:none;flex-direction:column;background:#fff;overflow:hidden}
+.slide.active{display:flex}
+
+/* ---------- 页头 ---------- */
+.shead{margin-bottom:16px;flex-shrink:0}
+.kicker{font-family:"JetBrains Mono","SF Mono",Consolas,monospace;font-size:10px;color:var(--brand);letter-spacing:2.5px;font-weight:700;margin-bottom:6px;text-transform:uppercase}
+.stitle{font-size:22px;font-weight:700;color:var(--ink);line-height:1.3;letter-spacing:-.2px;border-left:4px solid var(--brand2);padding-left:10px}
+
+/* ---------- 洞察框 ---------- */
+.insight-box{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:linear-gradient(135deg,var(--card-hl-bg),#fff);border-radius:4px;margin-bottom:12px;border-left:3px solid var(--brand2)}
+.ib-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.ib-text{font-size:12px;line-height:1.6;color:var(--ink2);font-weight:500}
+
+/* ---------- 底部章节标记 ---------- */
+.slide .foot-mark{position:absolute;bottom:18px;left:56px;right:56px;height:1px;background:var(--line)}
+.foot-chap{position:absolute;bottom:4px;left:56px;font-size:9.5px;letter-spacing:2px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;text-transform:uppercase}
+
+/* ---------- 封面 ---------- */
+.cover{padding:0;background:var(--cover-bg)}
+.cover-band{position:absolute;top:0;left:0;right:0;height:6px;background:var(--cover-band)}
+.cover-logo{position:absolute;top:40px;left:56px;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--brand);font-weight:600;letter-spacing:1.5px}
+.cl-icon{color:var(--brand2);font-size:18px}
+.cover-mid{position:absolute;left:56px;top:200px;max-width:900px}
+.cover-tag{display:inline-block;font-family:"JetBrains Mono",Consolas,monospace;font-size:11px;color:var(--brand);letter-spacing:2.5px;border:1px solid var(--brand2);padding:4px 12px;border-radius:2px;margin-bottom:22px}
+.cover-title{font-size:44px;font-weight:800;line-height:1.2;letter-spacing:-.5px;color:var(--ink)}
+.cover-sub{margin-top:14px;font-size:16px;color:var(--muted);line-height:1.6;max-width:760px}
+.cover-meta{position:absolute;bottom:50px;left:56px;display:flex;gap:10px;font-size:11px;color:var(--muted);align-items:center;font-family:"JetBrains Mono",Consolas,monospace;letter-spacing:.5px}
+.cover-meta i{color:var(--line);font-style:normal}
+
+/* ---------- 结尾 ---------- */
+.ending{background:var(--ink);color:#fff;justify-content:center;align-items:center;padding:0}
+.end-band{position:absolute;top:0;left:0;right:0;height:6px;background:var(--cover-band)}
+.end-body{text-align:center}
+.end-thanks{font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;letter-spacing:7px;color:var(--end-accent);margin-bottom:14px}
+.end-title{font-size:52px;font-weight:800;letter-spacing:6px;background:var(--end-title-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.end-sub{margin-top:16px;font-size:14px;color:#94a3b8}
+.end-contact{margin-top:8px;font-size:12px;color:#64748b}
+.end-meta{margin-top:30px;display:flex;justify-content:center;gap:10px;font-size:10px;color:#64748b;font-family:"JetBrains Mono",Consolas,monospace;letter-spacing:.5px}
+.end-meta i{color:#334155;font-style:normal}
+
+/* ---------- 目录（纯目录+侧栏说明） ---------- */
+.toc-container{display:flex;gap:40px;flex:1;align-items:center}
+.toc-list-single{display:flex;flex-direction:column;gap:12px;flex:1;max-width:700px}
+.toc-row-single{display:flex;align-items:center;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line);transition:all .15s}
+.toc-row-single:hover{background:var(--card-hl-bg);padding-left:24px}
+.toc-num-single{font-family:"JetBrains Mono",Consolas,monospace;font-size:24px;font-weight:800;color:var(--brand2);width:44px;letter-spacing:-1px}
+.toc-content{display:flex;flex-direction:column;gap:2px;flex:1}
+.toc-txt-single{font-size:17px;font-weight:600;color:var(--ink)}
+.toc-sub-single{font-size:11px;color:var(--muted)}
+.toc-dot-single{flex:1;border-top:2px dotted var(--line);min-width:40px}
+.toc-page-single{font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;color:var(--muted);font-weight:600;width:32px;text-align:right}
+.toc-side-note{width:240px;background:var(--bg2);padding:20px;border-radius:4px;flex-shrink:0}
+.tsn-title{font-size:11px;font-weight:700;color:var(--brand2);letter-spacing:1px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.tsn-item{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.tsn-label{font-size:10px;color:var(--muted)}
+.tsn-value{font-size:12px;color:var(--ink);font-weight:600}
+
+/* ---------- 金字塔模型（纯介绍页） ---------- */
+.pyrm-layout{display:flex;gap:30px;flex:1;min-height:0}
+.pyrm-left{width:44%;display:flex;flex-direction:column;align-items:center}
+.pyrm-svg{width:100%;height:440px;flex-shrink:0}
+.pyrm-axis-label{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:10px;color:var(--muted)}
+.pyrm-axis-low{color:var(--muted)}
+.pyrm-axis-arrow{color:var(--brand2);font-weight:700}
+.pyrm-axis-high{color:var(--brand2);font-weight:600}
+.pyr-model{fill:url(#pyrModelGrad);stroke:var(--brand2);stroke-width:1}
+.pyr-model-tag{fill:#fff;font-size:13px;font-weight:800;font-family:"JetBrains Mono",Consolas,monospace;letter-spacing:1px}
+.pyr-model-name{fill:#fff;font-size:11px;font-weight:600}
+.pyrm-right{flex:1;display:flex;flex-direction:column;overflow-y:auto}
+.pyrm-rtitle{font-size:12px;font-weight:700;color:var(--brand2);margin-bottom:10px;letter-spacing:1px}
+.pyrm-row{padding:10px 12px;border-left:3px solid var(--brand2);background:#fff;margin-bottom:8px}
+.pyrm-head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.pyrm-lv{font-family:"JetBrains Mono",Consolas,monospace;font-size:11px;font-weight:700;color:var(--brand2)}
+.pyrm-nm{font-size:13px;font-weight:700;color:var(--ink)}
+.pyrm-features{display:flex;flex-direction:column;gap:4px}
+.pyrm-feat{display:flex;align-items:flex-start;gap:6px;font-size:10.5px;color:var(--muted);line-height:1.5}
+.pyrm-dot{width:4px;height:4px;border-radius:50%;background:var(--brand2);margin-top:5px;flex-shrink:0}
+.model-desc{margin-top:10px;padding:10px 14px;background:var(--bg2);border-radius:4px;font-size:11px;color:var(--ink2);line-height:1.6;flex-shrink:0}
+
+/* ---------- 麦肯锡屋形模型 V2 - 专业咨询版 ---------- */
+.house-v2-wrap{width:100%;flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.house-v2-svg{width:100%;max-height:480px}
+.house-v2-foundation{fill:url(#foundGradV2);stroke:#cbd5e1;stroke-width:1}
+.house-v2-found-label{fill:var(--muted);font-size:10px;font-weight:600}
+.house-v2-found-text{fill:var(--ink2);font-size:12px;font-weight:600;letter-spacing:1px}
+.house-v2-roof{fill:url(#roofGradV2);stroke:var(--brand);stroke-width:1}
+.house-v2-roof-line{stroke:rgba(255,255,255,.2);stroke-width:1}
+.house-v2-chimney{fill:var(--brand);stroke:var(--brand);stroke-width:1}
+.house-v2-peak{fill:#fff;stroke:var(--brand3);stroke-width:2}
+.house-v2-roof-tag{fill:rgba(255,255,255,.7);font-size:10px;letter-spacing:2px;font-weight:500}
+.house-v2-roof-title{fill:#fff;font-size:15px;font-weight:800;letter-spacing:1px}
+.house-v2-roof-sub{fill:rgba(255,255,255,.75);font-size:10px;font-weight:500;letter-spacing:1px}
+.house-v2-pillar-shadow{fill:rgba(0,0,0,.06)}
+.house-v2-pillar{fill:#fff;stroke:var(--line);stroke-width:1}
+.house-v2-pillar-cap{fill:var(--brand2);filter:drop-shadow(0 2px 3px var(--hl-shadow-soft))}
+.house-v2-pillar-base{fill:#f1f5f9;stroke:#e2e8f0;stroke-width:1}
+.house-v2-pillar-idx-circle{fill:var(--brand2)}
+.house-v2-pillar-idx{fill:#fff;font-size:10px;font-weight:800;font-family:"JetBrains Mono",Consolas,monospace}
+.house-v2-pillar-name{fill:var(--ink);font-size:12px;font-weight:700}
+.house-v2-bullet{fill:var(--brand3)}
+.house-v2-pillar-kp{fill:var(--muted);font-size:8.5px}
+.house-v2-pillar-desc{fill:var(--muted);font-size:8.5px}
+.framework-note{margin-top:8px;padding:8px 12px;background:var(--bg2);border-left:3px solid var(--muted);border-radius:0 4px 4px 0;font-size:10.5px;color:var(--muted);line-height:1.5;flex-shrink:0}
+.fn-label{font-weight:600;color:var(--ink2)}
+
+/* ---------- 核心指标 V2 + 关键发现 ---------- */
+.metrics-v2-top{margin-bottom:14px}
+.m-grid-v2{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:12px}
+.m-card-v2{border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:#fff;position:relative;overflow:hidden}
+.m-card-v2::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--brand2)}
+.m-card-v2.hl{background:var(--card-hl-bg);border-color:var(--brand2)}
+.m-v2-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:6px}
+.m-v2-val{font-size:34px;font-weight:800;color:var(--brand2);font-family:"JetBrains Mono",Consolas,monospace;letter-spacing:-1px;line-height:1}
+.m-v2-unit{font-size:14px;font-weight:600;color:var(--muted);margin-left:2px}
+.m-v2-bench{font-size:10px;color:var(--muted);margin-top:6px}
+.m-v2-trend{font-size:10px;margin-top:4px;font-weight:600}
+.m-v2-trend.up{color:var(--ok)}
+.m-v2-trend.down{color:var(--danger)}
+.key-findings{flex:1}
+.kf-title{font-size:12px;font-weight:700;color:var(--brand2);letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--brand2);display:inline-block}
+.kf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kf-item{display:flex;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:4px;border-left:3px solid var(--brand2)}
+.kf-num{font-family:"JetBrains Mono",Consolas,monospace;font-size:14px;font-weight:800;color:var(--brand2);flex-shrink:0}
+.kf-content{flex:1}
+.kf-text{font-size:11.5px;color:var(--ink);font-weight:600;line-height:1.5}
+.kf-implication{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+
+/* ---------- 雷达图 V2 + 得分表 ---------- */
+.r-layout-v2{display:flex;gap:24px;align-items:flex-start;flex:1}
+.r-svg-v2{width:42%;flex-shrink:0;max-height:460px}
+.r-ring{fill:none;stroke:#e2e8f0;stroke-width:1}
+.r-axis{stroke:#f1f5f9;stroke-width:1}
+.r-tick{fill:#cbd5e1;font-size:9px;font-family:"JetBrains Mono",Consolas,monospace}
+.r-cur{fill:url(#rFillV2);stroke:var(--brand2);stroke-width:2}
+.r-dot{fill:var(--brand2)}
+.r-peer{fill:var(--peer-fill);stroke:var(--warn);stroke-width:1.5;stroke-dasharray:5 3}
+.r-target{fill:none;stroke:var(--radar-target-stroke);stroke-width:1.2;stroke-dasharray:2 3}
+.r-label{fill:var(--ink);font-size:11px;font-weight:600}
+.r-val{fill:var(--brand2);font-size:10px;font-weight:700;font-family:"JetBrains Mono",Consolas,monospace}
+.r-val.low{fill:var(--danger)}
+.r-val.high{fill:var(--ok)}
+.r-vp{fill:var(--warn);font-weight:500;margin-left:2px;font-size:9px}
+.r-side-v2{flex:1;display:flex;flex-direction:column;gap:10px}
+.r-legend-v2{display:flex;gap:16px;font-size:11px;color:var(--muted)}
+.r-legend-v2 span{display:inline-flex;align-items:center;gap:6px}
+.r-legend-v2 i{width:18px;height:0;border-top:2px solid var(--brand2);display:inline-block}
+.r-legend-v2 i.lg-peer-v2{border-top-style:dashed;border-top-color:var(--warn)}
+.r-legend-v2 i.lg-target-v2{border-top-style:dotted;border-top-color:var(--radar-target-stroke)}
+.rs-table{background:var(--bg2);border-radius:4px;padding:10px 12px}
+.rs-header{display:grid;grid-template-columns:90px 1fr 40px 40px;gap:8px;font-size:10px;color:var(--muted);font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.rs-row{display:grid;grid-template-columns:90px 1fr 40px 40px;gap:8px;align-items:center;padding:5px 0;font-size:11px}
+.rs-name{color:var(--ink);font-weight:500}
+.rs-bar-wrap{height:10px;background:#e2e8f0;border-radius:2px;position:relative}
+.rs-bar{height:100%;background:var(--bar-fill);border-radius:2px}
+.rs-peer-mark{position:absolute;top:-2px;width:2px;height:14px;background:var(--warn)}
+.rs-score{font-family:"JetBrains Mono",Consolas,monospace;font-weight:700;color:var(--brand2);text-align:right}
+.rs-gap{font-family:"JetBrains Mono",Consolas,monospace;font-size:10px;font-weight:600;text-align:right}
+.rs-gap.pos{color:var(--ok)}
+.rs-gap.neg{color:var(--danger)}
+.rs-gap.neu{color:var(--muted)}
+.r-summary{padding:10px 12px;background:var(--card-hl-bg);border-radius:4px;font-size:11px;color:var(--ink2);line-height:1.6;border-left:3px solid var(--brand2)}
+
+/* ---------- 维度详解（优势/短板）- 丰富布局 ---------- */
+.dim-detail-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;align-content:start;overflow-y:auto}
+.dim-card{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.dim-card.weak{border-color:var(--danger)}
+.dim-head{display:flex;align-items:center;gap:10px;padding:12px;background:linear-gradient(135deg,var(--ok-bg),#fff);border-bottom:1px solid var(--line)}
+.dim-card.weak .dim-head{background:linear-gradient(135deg,var(--danger-bg),#fff)}
+.dim-score-box{width:50px;height:50px;border-radius:50%;background:var(--ok);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.dim-score-box.weak{background:var(--danger)}
+.dim-score{font-size:18px;font-weight:800;font-family:"JetBrains Mono",Consolas,monospace;line-height:1}
+.dim-score-label{font-size:8px;font-weight:500;opacity:.8}
+.dim-title-area{flex:1}
+.dim-name{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.dim-level{font-size:10px;color:var(--ok);font-weight:600;margin-top:2px}
+.dim-gap{font-size:10px;color:var(--danger);font-weight:600;margin-top:2px}
+.dim-badge{font-size:9px;padding:3px 8px;border-radius:2px;font-weight:700;letter-spacing:.5px}
+.dim-badge.ok{background:var(--ok);color:#fff}
+.dim-badge.danger{background:var(--danger);color:#fff}
+.dim-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.dim-section{display:flex;flex-direction:column;gap:3px}
+.dim-sec-title{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+.dim-sec-content{font-size:10.5px;color:var(--ink2);line-height:1.5}
+.dim-sec-content.danger-text{color:var(--danger)}
+.dim-evidence-list{list-style:none;display:flex;flex-direction:column;gap:3px}
+.dim-evidence-list li{font-size:10px;color:var(--ink2);line-height:1.4;padding-left:10px;position:relative}
+.dim-evidence-list li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700;font-size:9px}
+.dim-value-text{font-size:10.5px;color:var(--ok);font-weight:600;line-height:1.4}
+.dim-impact-text{font-size:10.5px;color:var(--danger);font-weight:500;line-height:1.4}
+
+/* ---------- 条形图 V2 - 差距对比+解读 ---------- */
+.comparison-note{padding:8px 12px;background:var(--bg2);border-radius:4px;font-size:10.5px;color:var(--muted);margin-bottom:10px;flex-shrink:0}
+.b-v2-chart{flex:1;display:flex;flex-direction:column;gap:2px}
+.b-v2-header{display:grid;grid-template-columns:120px 1fr 100px;gap:12px;font-size:10px;color:var(--muted);font-weight:600;padding-bottom:6px;border-bottom:2px solid var(--line);margin-bottom:6px}
+.b-v2-h-lbl{text-align:right}
+.b-v2-h-track{padding-left:4px}
+.b-v2-row{display:grid;grid-template-columns:120px 1fr 100px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bg2)}
+.b-v2-lbl-area{display:flex;flex-direction:column;align-items:flex-end}
+.b-v2-lbl{font-size:11px;color:var(--ink);font-weight:600;text-align:right}
+.b-v2-weight{font-size:9px;color:var(--muted);margin-top:2px}
+.b-v2-track-wrap{position:relative}
+.b-v2-scale{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-bottom:3px;font-family:"JetBrains Mono",Consolas,monospace}
+.b-v2-track{height:20px;background:linear-gradient(90deg,#fef2f2,#fff7ed,#fefce8,#f0fdf4,#dcfce7);border-radius:3px;position:relative;overflow:visible}
+.b-v2-fill{height:100%;background:var(--bar-fill);border-radius:3px;opacity:.85}
+.b-v2-peer{position:absolute;top:-4px;width:3px;height:28px;background:var(--warn);border-radius:1px;z-index:2}
+.b-v2-labels{position:relative;height:14px;margin-top:2px}
+.b-v2-cur-label,.b-v2-peer-label{position:absolute;font-size:9px;font-weight:600;transform:translateX(-50%)}
+.b-v2-cur-label{color:var(--brand2)}
+.b-v2-peer-label{color:var(--warn)}
+.b-v2-val-area{display:flex;align-items:center;gap:8px}
+.b-v2-val{font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;font-weight:700;color:var(--brand2)}
+.b-v2-gap{font-family:"JetBrains Mono",Consolas,monospace;font-size:11px;font-weight:700;padding:2px 6px;border-radius:2px}
+.b-v2-gap.pos{color:var(--ok);background:var(--ok-bg)}
+.b-v2-gap.neg{color:var(--danger);background:var(--danger-bg)}
+.b-v2-gap.neu{color:var(--muted)}
+.gap-interpretation{margin-top:10px;padding:10px 12px;background:var(--card-hl-bg);border-left:3px solid var(--brand2);border-radius:0 4px 4px 0;flex-shrink:0}
+.gi-title{font-size:10px;font-weight:700;color:var(--brand2);margin-bottom:4px}
+.gi-content{font-size:10.5px;color:var(--ink2);line-height:1.6}
+.key-gaps-list{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;flex-shrink:0}
+.kg-item{display:flex;align-items:flex-start;gap:6px;font-size:10.5px;color:var(--ink2);padding:6px 10px;background:var(--bg2);border-radius:3px}
+.kg-icon{color:var(--danger);font-weight:700;flex-shrink:0}
+
+/* ---------- 问题逻辑树 V2 ---------- */
+.it-v2-wrap{position:relative;width:100%;max-width:var(--w);flex:1;margin:0 auto}
+.it-v2-svg{position:absolute;inset:0;width:100%;height:100%}
+.it-v2-line{stroke:#cbd5e1;stroke-width:1.5;fill:none}
+.it-v2-line-l2{stroke:#e2e8f0;stroke-width:1}
+.it-v2-problem{position:absolute;background:linear-gradient(135deg,var(--ink),#1e293b);color:#fff;padding:12px 28px;text-align:center;border-radius:4px;min-width:280px;box-shadow:0 4px 16px rgba(15,23,42,.25)}
+.it-v2-p-tag{font-family:"JetBrains Mono",Consolas,monospace;font-size:9px;letter-spacing:2px;color:#94a3b8;margin-bottom:4px;text-transform:uppercase}
+.it-v2-p-title{font-size:14px;font-weight:700;line-height:1.3}
+.it-v2-l1{position:absolute;background:#fff;border:2px solid var(--brand2);padding:10px 14px;text-align:center;border-radius:4px;box-shadow:0 3px 10px var(--hl-shadow-soft)}
+.it-v2-l1.p0{border-color:var(--s1);background:var(--danger-bg)}
+.it-v2-l1.p1{border-color:var(--s2);background:#fff7ed}
+.it-v2-l1.p2{border-color:var(--s3);background:var(--warn-bg)}
+.it-v2-prio{position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;padding:2px 8px;border-radius:2px;letter-spacing:.5px}
+.it-v2-prio.p0{background:var(--prio-p0-bg);color:var(--prio-p0-text)}
+.it-v2-prio.p1{background:var(--prio-p1-bg);color:var(--prio-p1-text)}
+.it-v2-prio.p2{background:var(--prio-p2-bg);color:var(--prio-p2-text)}
+.it-v2-l1-title{font-size:12px;font-weight:700;color:var(--ink);line-height:1.3;margin-top:2px}
+.it-v2-l1-impact{font-size:9.5px;color:var(--muted);margin-top:4px;line-height:1.3}
+.it-v2-l2{position:absolute;background:var(--bg2);padding:6px 10px;font-size:10px;color:var(--ink2);line-height:1.4;border-radius:3px;border-left:3px solid var(--muted)}
+.root-conclusion{margin-top:8px;padding:10px 14px;background:var(--bg2);border-radius:4px;font-size:11px;color:var(--ink2);line-height:1.6;flex-shrink:0}
+
+/* ---------- 路线图 V2 - 时间轴+卡片 ---------- */
+.roadmap-summary{padding:8px 12px;background:var(--card-hl-bg);border-left:3px solid var(--brand2);border-radius:0 4px 4px 0;font-size:11px;color:var(--ink2);margin-bottom:12px;flex-shrink:0}
+.rm-timeline{position:relative;margin-bottom:14px;flex-shrink:0;padding:0 10px}
+.rm-tl-line{position:absolute;top:50px;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--s1),var(--brand2),var(--s4));border-radius:2px}
+.rm-tl-phase{position:absolute;top:0;text-align:center}
+.rm-tl-bar{position:absolute;top:44px;height:16px;border-radius:3px;opacity:.3}
+.rm-tl-dot{position:absolute;top:46px;left:0;width:12px;height:12px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transform:translateX(-50%)}
+.rm-tl-label{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.rm-tl-time{font-size:9px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace}
+.rm-tl-months{position:relative;height:20px;margin-top:50px}
+.rm-tl-months span{position:absolute;font-size:9px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;transform:translateX(-50%)}
+.rm-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;align-content:start}
+.rm-card{background:#fff;border:1px solid var(--line);border-top-width:4px;border-radius:0 0 4px 4px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.rm-card-head{display:flex;align-items:center;gap:10px}
+.rm-card-num{font-family:"JetBrains Mono",Consolas,monospace;font-size:22px;font-weight:800;line-height:1;flex-shrink:0}
+.rm-card-title-area{flex:1}
+.rm-card-phase{font-size:14px;font-weight:700;color:var(--ink);line-height:1.2}
+.rm-card-time{font-size:10px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;margin-top:2px}
+.rm-card-inv{font-size:9px;background:var(--bg2);padding:3px 7px;border-radius:2px;color:var(--ink2);white-space:nowrap}
+.rm-card-objective{display:flex;gap:6px;align-items:flex-start;font-size:10.5px;line-height:1.5}
+.rm-obj-label{font-size:9px;font-weight:700;color:var(--muted);white-space:nowrap}
+.rm-obj-text{color:var(--ink2);flex:1}
+.rm-card-ms{display:flex;flex-direction:column;gap:4px}
+.rm-ms-title{font-size:9px;font-weight:700;color:var(--muted)}
+.rm-ms-list{display:flex;flex-direction:column;gap:3px}
+.rm-ms-item{display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--ink2);line-height:1.3}
+.rm-ms-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.rm-card-deliv{font-size:9.5px;color:var(--muted);padding-top:6px;border-top:1px dashed var(--line)}
+.rm-deliv-label{font-weight:600}
+
+/* ---------- 举措矩阵 V2 ---------- */
+.init-matrix-wrap{display:flex;gap:16px;flex:1;min-height:0}
+.init-matrix{width:300px;position:relative;flex-shrink:0}
+.im-y-label{position:absolute;left:-20px;top:50%;transform:rotate(-90deg) translateX(-50%);transform-origin:left center;font-size:9px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.im-x-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.im-grid{position:relative;width:100%;padding-bottom:100%;border:1px solid var(--line);border-radius:4px;background:linear-gradient(135deg,#fef2f2 0%,#f0fdf4 100%)}
+.im-cell{position:absolute;width:50%;height:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.im-cell.im-q1{top:0;left:0;border-right:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+.im-cell.im-q2{top:0;right:0;border-bottom:1px dashed var(--line)}
+.im-cell.im-q3{bottom:0;left:0;border-right:1px dashed var(--line)}
+.im-cell.im-q4{bottom:0;right:0}
+.im-q-title{font-size:10px;font-weight:700;color:var(--ink)}
+.im-q-desc{font-size:8.5px;color:var(--muted);margin-top:2px}
+.im-dot{position:absolute;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.2);cursor:default;z-index:2}
+.im-dot.p0{background:var(--prio-p0-bg)}
+.im-dot.p1{background:var(--prio-p1-bg)}
+.im-dot.p2{background:var(--prio-p2-bg)}
+.init-list{flex:1;display:flex;flex-direction:column;overflow-y:auto}
+.il-header{display:grid;grid-template-columns:50px 1fr 120px 80px;gap:8px;font-size:10px;color:var(--muted);font-weight:700;padding:8px 10px;background:var(--bg2);border-radius:4px 4px 0 0;letter-spacing:.5px}
+.il-row{display:grid;grid-template-columns:50px 1fr 120px 80px;gap:8px;padding:10px;align-items:start;border-bottom:1px solid var(--line)}
+.il-prio{display:inline-block;font-size:9px;font-weight:800;padding:3px 8px;border-radius:2px;text-align:center;letter-spacing:.5px}
+.il-prio.p0{background:var(--prio-p0-bg);color:var(--prio-p0-text)}
+.il-prio.p1{background:var(--prio-p1-bg);color:var(--prio-p1-text)}
+.il-prio.p2{background:var(--prio-p2-bg);color:var(--prio-p2-text)}
+.il-name-area{display:flex;flex-direction:column;gap:3px}
+.il-name{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.il-desc{font-size:10px;color:var(--muted);line-height:1.4}
+.il-value{display:flex;flex-direction:column;gap:2px}
+.il-val-main{font-size:11px;font-weight:700;color:var(--ok)}
+.il-roi{font-size:9.5px;color:var(--muted)}
+.il-time{font-size:10px;color:var(--ink2);font-family:"JetBrains Mono",Consolas,monospace}
+.expected-outcome{margin-top:10px;padding:10px 14px;background:linear-gradient(135deg,var(--card-hl-bg),#fff);border:1px solid var(--brand2);border-radius:4px;font-size:11px;color:var(--ink);font-weight:600;flex-shrink:0}
+.eo-label{color:var(--brand2);margin-right:4px}
+
+/* ---------- 提示 ---------- */
+.hint{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;color:#94a3b8;z-index:999}
+
+/* ---------- 封面增强 ---------- */
+.cover-deco{position:absolute;top:0;right:0;width:400px;height:400px;background:radial-gradient(circle at 80% 20%,var(--brand3),transparent 60%);opacity:.12}
+.cover-deco2{position:absolute;bottom:0;left:0;width:300px;height:300px;background:radial-gradient(circle at 10% 90%,var(--brand2),transparent 60%);opacity:.08}
+.cover-ornament{position:absolute;bottom:120px;right:56px;text-align:right}
+.co-line{width:80px;height:3px;background:var(--cover-band);margin-left:auto;margin-bottom:10px;border-radius:2px}
+.co-year{font-family:"JetBrains Mono",Consolas,monospace;font-size:48px;font-weight:800;color:var(--brand);opacity:.25;letter-spacing:2px}
+
+/* ---------- 金字塔 V4 - SVG三角形+左右引导线特征标注 ---------- */
+.pyrm-v4-container{flex:1;display:flex;flex-direction:column;min-height:0}
+.pyrm-v4-desc{padding:10px 14px;background:var(--bg2);border-radius:4px;font-size:11px;color:var(--ink2);line-height:1.6;margin-bottom:10px;flex-shrink:0;border-left:3px solid var(--brand2)}
+.pyrm-v4-body{flex:1;display:flex;gap:0;min-height:0;align-items:stretch;position:relative}
+.pyrm-v4-left,.pyrm-v4-right{flex:1;position:relative;min-width:0}
+.pyrm-v4-center{flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;padding:10px 0}
+.pyrm-v4-feat-item{position:absolute;top:var(--feat-y);transform:translateY(-50%);display:flex;align-items:center;gap:0;width:100%}
+.pyrm-v4-feat-item.right{justify-content:flex-end}
+.p4fi-line{width:36px;height:1px;background:var(--line);flex-shrink:0}
+.pyrm-v4-feat-item.right .p4fi-line{width:36px}
+.p4fi-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 3px #fff;z-index:1}
+.p4fi-content{padding:0 10px;min-width:0}
+.pyrm-v4-feat-item.right .p4fi-content{text-align:right}
+.p4fi-level{font-size:10px;font-weight:700;font-family:"JetBrains Mono",Consolas,monospace;margin-bottom:4px;letter-spacing:.5px}
+.p4fi-feats{display:flex;gap:4px;flex-wrap:wrap}
+.pyrm-v4-feat-item.right .p4fi-feats{justify-content:flex-end}
+.p4fi-chip{padding:2px 8px;background:#fff;border:1px solid var(--line);border-radius:10px;font-size:9.5px;color:var(--ink2);font-weight:500;white-space:nowrap}
+.pyrm-v4-axis-lbl{position:absolute;left:-20px;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:2px;writing-mode:vertical-rl;font-family:"JetBrains Mono",Consolas,monospace}
+.pyrm-v4-axis-top{top:15px;color:var(--brand2)}
+.pyrm-v4-axis-bot{bottom:20px}
+.pyrm-v4-axis-arrow{position:absolute;left:-18px;top:50%;transform:translateY(-50%);color:var(--brand2);font-size:12px;font-weight:700}
+
+/* ---------- 屋形模型字体放大 ---------- */
+.house-v2-pillar-name{font-size:13px;font-weight:700}
+.house-v2-pillar-kp{font-size:10.5px}
+.house-v2-bullet{r:3px}
+
+/* ---------- 维度详解 V3 - 2列大卡片，填充页面 ---------- */
+.dim-v3-grid{flex:1;display:grid;gap:14px;min-height:0}
+.strengths-grid{grid-template-columns:1fr 1fr 1fr}
+.weaknesses-grid{grid-template-columns:1fr 1fr 1fr}
+.dim-v3-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;border-top:4px solid var(--ok)}
+.dim-v3-card.weak{border-top-color:var(--danger);border-color:rgba(220,38,38,.2)}
+.dim-v3-header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,var(--ok-bg),#fff);border-bottom:1px solid var(--line)}
+.dim-v3-header.weak-hdr{background:linear-gradient(135deg,var(--danger-bg),#fff)}
+.dim-v3-score{width:56px;height:56px;border-radius:50%;background:var(--ok);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.dim-v3-score.weak-score{background:var(--danger)}
+.dvs-num{font-size:22px;font-weight:800;font-family:"JetBrains Mono",Consolas,monospace;line-height:1}
+.dvs-lbl{font-size:9px;font-weight:500;opacity:.85;margin-top:2px}
+.dim-v3-title{flex:1}
+.dvt-name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.dvt-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;margin-top:6px}
+.dvt-tag.strong-tag{background:var(--ok-bg);color:var(--ok-text)}
+.dvt-tag.weak-tag{background:var(--danger-bg);color:var(--danger-text)}
+.dim-v3-body{padding:12px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.dv3-sec{display:flex;flex-direction:column;gap:4px}
+.dv3-st{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.dv3-st.danger-st{color:var(--danger)}
+.dv3-st-ico{font-size:11px}
+.dv3-sc{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.dv3-sc.danger-sc{color:var(--danger-text)}
+.dv3-evidence{list-style:none;display:flex;flex-direction:column;gap:4px}
+.dv3-evidence li{font-size:11px;color:var(--ink2);line-height:1.5;padding-left:14px;position:relative}
+.dv3-evidence li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
+.dv3-value{color:var(--ok-text);font-weight:600}
+.dv3-value-sec{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line)}
+.dv3-impact{color:var(--danger-text);font-weight:500}
+.dv3-impact-sec{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* ---------- 条形图差距页优化 ---------- */
+.b-v2-chart{gap:4px}
+.b-v2-row{padding:10px 0}
+.b-v2-track{height:24px}
+.gap-interpretation{margin-top:12px;padding:12px 14px;font-size:11.5px;line-height:1.7}
+.key-gaps-list{margin-top:10px;gap:8px}
+.kg-item{padding:8px 12px;font-size:11px;line-height:1.5}
+
+/* ---------- 路线图优化填充 ---------- */
+.rm-cards{gap:14px;align-content:stretch}
+.rm-card{padding:14px 16px}
+.rm-card-phase{font-size:15px}
+.rm-ms-item{font-size:10.5px;line-height:1.4}
+
+/* ---------- 雷达图评分表增加一句话评价 ---------- */
+.rs-row-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.rs-row-top .rs-name{flex:1}
+.rs-comment{font-size:9.5px;color:var(--muted);line-height:1.4;margin-top:3px;padding-left:2px}
+.rs-table{max-height:280px;overflow-y:auto}
+
+/* ---------- P9差距页 V3 - 左右分栏+对标案例 ---------- */
+.b-v3-layout{flex:1;display:flex;gap:18px;min-height:0}
+.b-v3-left{flex:1.15;display:flex;flex-direction:column;min-height:0}
+.b-v3-right{flex:1;display:flex;flex-direction:column;min-height:0}
+.b-v3-chart{background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px 14px 8px;flex-shrink:0}
+.b-v3-header{display:grid;grid-template-columns:90px 1fr 70px;gap:10px;font-size:9.5px;color:var(--muted);font-weight:700;padding-bottom:6px;border-bottom:2px solid var(--line);margin-bottom:4px}
+.b-v3-h-lbl{text-align:left}.b-v3-h-track{text-align:center}.b-v3-h-val{text-align:right}
+.b-v3-row{display:grid;grid-template-columns:90px 1fr 70px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bg2)}
+.b-v3-lbl{font-size:11px;color:var(--ink);font-weight:600;line-height:1.2}
+.b-v3-track-wrap{position:relative}
+.b-v3-scale{display:flex;justify-content:space-between;font-size:8px;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;margin-bottom:2px}
+.b-v3-track{height:14px;background:var(--bg2);border-radius:7px;position:relative;overflow:visible}
+.b-v3-fill{height:100%;background:var(--bar-fill);border-radius:7px;transition:width .4s}
+.b-v3-peer{position:absolute;top:-3px;width:2px;height:20px;background:var(--warn);border-radius:1px}
+.b-v3-val{text-align:right;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;color:var(--ink)}
+.b-v3-val b{font-weight:700;font-size:13px}
+.b-v3-gap{font-size:9.5px;font-weight:700;margin-left:4px;padding:1px 5px;border-radius:3px}
+.b-v3-gap.pos{color:var(--ok-text);background:var(--ok-bg)}
+.b-v3-gap.neg{color:var(--danger-text);background:var(--danger-bg)}
+.b-v3-gap.neu{color:var(--muted);background:var(--bg2)}
+.gap-interpretation-v2{margin-top:10px;padding:10px 14px;background:linear-gradient(135deg,var(--card-hl-bg),#fff);border-left:3px solid var(--brand2);border-radius:0 4px 4px 0;font-size:11px;color:var(--ink2);line-height:1.65;flex-shrink:0}
+.gap-interpretation-v2 b{color:var(--brand)}
+.bench-title{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--brand2)}
+.bench-title-ico{color:var(--warn);font-size:14px}
+.bench-cases-grid{flex:1;display:flex;flex-direction:column;gap:10px;min-height:0;overflow-y:auto}
+.bench-case-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px;border-left:3px solid var(--ok)}
+.bcc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.bcc-name{font-size:12px;font-weight:700;color:var(--ink)}
+.bcc-score{font-family:"JetBrains Mono",Consolas,monospace;font-size:15px;font-weight:800;color:var(--ok)}
+.bcc-slash{font-size:10px;color:var(--muted);font-weight:500}
+.bcc-level{font-size:9.5px;color:var(--ok);font-weight:600;margin-bottom:6px;background:var(--ok-bg);display:inline-block;padding:1px 6px;border-radius:2px}
+.bcc-practices{display:flex;flex-direction:column;gap:3px}
+.bcc-p{display:flex;align-items:flex-start;gap:5px;font-size:9.5px;color:var(--ink2);line-height:1.4}
+.bcc-p-dot{width:4px;height:4px;border-radius:50%;background:var(--ok);flex-shrink:0;margin-top:5px}
+
+/* ---------- P5关键发现增强：图标+更丰富的卡片式 ---------- */
+.kf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;align-content:stretch}
+.kf-item{display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:6px;border-left:3px solid var(--brand2)}
+.kf-num{font-family:"JetBrains Mono",Consolas,monospace;font-size:20px;font-weight:800;color:var(--brand2);line-height:1;flex-shrink:0;min-width:32px}
+.kf-content{flex:1;min-width:0}
+.kf-text{font-size:11.5px;color:var(--ink);font-weight:600;line-height:1.5}
+.kf-implication{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4;padding-top:4px;border-top:1px dashed var(--line)}
+
+</style>
+</head>
+<body class="theme-red">
+<div id="stage"><div id="deck">
+<section class="slide active cover">
+    <div class="cover-band"></div>
+    <div class="cover-deco"></div>
+    <div class="cover-deco2"></div>
+    <div class="cover-logo">
+      <span class="cl-icon">◆</span>
+      <span class="cl-text">数智咨询实验室</span>
+    </div>
+    <div class="cover-mid">
+      <div class="cover-tag">成熟度评估</div>
+      <h1 class="cover-title">某港口集团数智化成熟度评估报告</h1>
+      <p class="cover-sub">基于GB/T 43439-2023国家标准 · L1-L5五级 × 七维度全景评估</p>
+    </div>
+    <div class="cover-meta">
+      <span>客户：某港口集团</span> <i>|</i> <span>日期：2026年8月</span> <i>|</i> <span>数智咨询实验室</span>
+    </div>
+    <div class="cover-ornament">
+      <div class="co-line"></div>
+      <div class="co-year">2026</div>
+    </div>
+  
+    
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">CONTENTS</div><h2 class="stitle">目录</h2></header>
+    <div class="toc-container">
+      <div class="toc-list-single">
+        
+          <div class="toc-row-single">
+            <span class="toc-num-single">01</span>
+            <div class="toc-content">
+              <span class="toc-txt-single">成熟度模型与评估框架</span>
+              <span class="toc-sub-single">评估方法论与能力框架介绍</span>
+            </div>
+            <span class="toc-dot-single"></span>
+            <span class="toc-page-single">03</span>
+          </div>
+          <div class="toc-row-single">
+            <span class="toc-num-single">02</span>
+            <div class="toc-content">
+              <span class="toc-txt-single">成熟度评估结果</span>
+              <span class="toc-sub-single">综合定级、七维度评分与优劣势分析</span>
+            </div>
+            <span class="toc-dot-single"></span>
+            <span class="toc-page-single">05</span>
+          </div>
+          <div class="toc-row-single">
+            <span class="toc-num-single">03</span>
+            <div class="toc-content">
+              <span class="toc-txt-single">差距诊断与根因分析</span>
+              <span class="toc-sub-single">量化差距对比与核心问题根因拆解</span>
+            </div>
+            <span class="toc-dot-single"></span>
+            <span class="toc-page-single">09</span>
+          </div>
+          <div class="toc-row-single">
+            <span class="toc-num-single">04</span>
+            <div class="toc-content">
+              <span class="toc-txt-single">改进举措与路线图</span>
+              <span class="toc-sub-single">优先级排序、实施路径与预期价值</span>
+            </div>
+            <span class="toc-dot-single"></span>
+            <span class="toc-page-single">11</span>
+          </div>
+      </div>
+      <div class="toc-side-note">
+        <div class="tsn-title">报告说明</div>
+        <div class="tsn-item">
+          <span class="tsn-label">评估依据</span>
+          <span class="tsn-value">GB/T 43439-2023</span>
+        </div>
+        <div class="tsn-item">
+          <span class="tsn-label">评估维度</span>
+          <span class="tsn-value">7大核心领域</span>
+        </div>
+        <div class="tsn-item">
+          <span class="tsn-label">成熟度等级</span>
+          <span class="tsn-value">L1-L5 五级</span>
+        </div>
+        <div class="tsn-item">
+          <span class="tsn-label">数据来源</span>
+          <span class="tsn-value">访谈+问卷+系统调研</span>
+        </div>
+      </div>
+    </div>
+  
+    
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">01 成熟度模型与评估框架</div><h2 class="stitle">成熟度分级模型——GB/T 43439-2023 L1-L5五级演进路径</h2></header>
+    <div class="pyrm-v4-container">
+      <div class="pyrm-v4-desc">本评估依据GB/T 43439-2023《数字化成熟度模型》国家标准，结合港口行业特性，将数智化成熟度划分为5个递进等级，从单点信息化到生态化引领，逐级递进。评估覆盖战略、组织、业务、数据、技术、AI、价值七大核心维度。</div>
+      <div class="pyrm-v4-body">
+        <!-- 左侧特征区 -->
+        <div class="pyrm-v4-left">
+          
+            <div class="pyrm-v4-feat-item" style="--feat-y:90%">
+              <div class="p4fi-line"></div>
+              <div class="p4fi-dot" style="background:#059669"></div>
+              <div class="p4fi-content">
+                <div class="p4fi-level" style="color:#059669">L1 起始级</div>
+                <div class="p4fi-feats">
+                  <span class="p4fi-chip">业务单点信息化</span><span class="p4fi-chip">无统一转型战略</span><span class="p4fi-chip">数据分散孤立</span><span class="p4fi-chip">IT仅作支撑职能</span>
+                </div>
+              </div>
+            </div>
+          
+            <div class="pyrm-v4-feat-item" style="--feat-y:50%">
+              <div class="p4fi-line"></div>
+              <div class="p4fi-dot" style="background:#CA8A04"></div>
+              <div class="p4fi-content">
+                <div class="p4fi-level" style="color:#CA8A04">L3 流程级</div>
+                <div class="p4fi-feats">
+                  <span class="p4fi-chip">跨部门流程贯通</span><span class="p4fi-chip">企业级数据共享</span><span class="p4fi-chip">数据驱动决策</span><span class="p4fi-chip">业务IT深度融合</span>
+                </div>
+              </div>
+            </div>
+          
+            <div class="pyrm-v4-feat-item" style="--feat-y:10%">
+              <div class="p4fi-line"></div>
+              <div class="p4fi-dot" style="background:#DC2626"></div>
+              <div class="p4fi-content">
+                <div class="p4fi-level" style="color:#DC2626">L5 生态级</div>
+                <div class="p4fi-feats">
+                  <span class="p4fi-chip">数智原生组织</span><span class="p4fi-chip">智能自主决策</span><span class="p4fi-chip">生态价值网络</span><span class="p4fi-chip">行业能力输出</span>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+        <!-- 中央SVG金字塔 -->
+        <div class="pyrm-v4-center">
+          <svg viewBox="0 0 520 380" width="520" height="380" style="overflow:visible">
+            <defs>
+    <filter id="pyrShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(15,23,42,.15)"/>
+    </filter>
+  </defs><path d="M 242 25 L 278 25 L 322 93 L 198 93 Z" fill="#DC2626" opacity="0.95" stroke="#fff" stroke-width="1.5"/><text x="260" y="53" text-anchor="middle" fill="#fff" font-size="13" font-weight="800" font-family="JetBrains Mono,Consolas,monospace" letter-spacing="1">L5</text><text x="260" y="69" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="600" opacity="0.95">生态级</text><path d="M 198 93 L 322 93 L 366 161 L 154 161 Z" fill="#EA580C" opacity="0.9" stroke="#fff" stroke-width="1.5"/><text x="260" y="121" text-anchor="middle" fill="#fff" font-size="13" font-weight="800" font-family="JetBrains Mono,Consolas,monospace" letter-spacing="1">L4</text><text x="260" y="137" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="600" opacity="0.95">网络级</text><path d="M 154 161 L 366 161 L 410 229 L 110 229 Z" fill="#CA8A04" opacity="0.85" stroke="#fff" stroke-width="1.5"/><text x="260" y="189" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="800" font-family="JetBrains Mono,Consolas,monospace" letter-spacing="1">L3</text><text x="260" y="205" text-anchor="middle" fill="#1e293b" font-size="10.5" font-weight="600" opacity="0.95">流程级</text><path d="M 110 229 L 410 229 L 454 297 L 66 297 Z" fill="#16A34A" opacity="0.8" stroke="#fff" stroke-width="1.5"/><text x="260" y="257" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="800" font-family="JetBrains Mono,Consolas,monospace" letter-spacing="1">L2</text><text x="260" y="273" text-anchor="middle" fill="#1e293b" font-size="10.5" font-weight="600" opacity="0.95">单元级</text><path d="M 66 297 L 454 297 L 498 365 L 22 365 Z" fill="#059669" opacity="0.75" stroke="#fff" stroke-width="1.5"/><text x="260" y="325" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="800" font-family="JetBrains Mono,Consolas,monospace" letter-spacing="1">L1</text><text x="260" y="341" text-anchor="middle" fill="#1e293b" font-size="10.5" font-weight="600" opacity="0.95">起始级</text>
+          </svg>
+          <div class="pyrm-v4-axis-lbl pyrm-v4-axis-top">生态引领</div>
+          <div class="pyrm-v4-axis-lbl pyrm-v4-axis-bot">单点应用</div>
+          <div class="pyrm-v4-axis-arrow">▲</div>
+        </div>
+        <!-- 右侧特征区 -->
+        <div class="pyrm-v4-right">
+          
+            <div class="pyrm-v4-feat-item right" style="--feat-y:30%">
+              <div class="p4fi-content">
+                <div class="p4fi-level" style="color:#EA580C">L4 网络级</div>
+                <div class="p4fi-feats">
+                  <span class="p4fi-chip">平台化能力复用</span><span class="p4fi-chip">AI深度嵌入业务</span><span class="p4fi-chip">产业链数据协同</span><span class="p4fi-chip">数字业务创新</span>
+                </div>
+              </div>
+              <div class="p4fi-dot" style="background:#EA580C"></div>
+              <div class="p4fi-line"></div>
+            </div>
+          
+            <div class="pyrm-v4-feat-item right" style="--feat-y:70%">
+              <div class="p4fi-content">
+                <div class="p4fi-level" style="color:#16A34A">L2 单元级</div>
+                <div class="p4fi-feats">
+                  <span class="p4fi-chip">部门级系统建设</span><span class="p4fi-chip">核心业务线上化</span><span class="p4fi-chip">部门内数据可用</span><span class="p4fi-chip">IT驱动局部优化</span>
+                </div>
+              </div>
+              <div class="p4fi-dot" style="background:#16A34A"></div>
+              <div class="p4fi-line"></div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">01 成熟度模型与评估框架</div><h2 class="stitle">七维度评估框架——麦肯锡屋形模型：七大能力支柱共同支撑数智化转型</h2></header>
+    <div class="house-v2-wrap" style="--w:1140px;--h:510px">
+      <svg class="house-v2-svg" viewBox="0 0 1140 510" preserveAspectRatio="xMidYMid meet">
+        <defs>
+    <linearGradient id="roofGradV2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--brand)"/>
+      <stop offset="100%" stop-color="var(--brand2)"/>
+    </linearGradient>
+    <linearGradient id="foundGradV2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <filter id="roofShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="var(--hl-shadow-soft)"/>
+    </filter>
+  </defs><rect class="house-v2-foundation" x="45" y="415" width="1050" height="60" rx="6"/><text class="house-v2-found-label" x="70" y="437">地基</text><text class="house-v2-found-text" x="570" y="455" text-anchor="middle">治理体系 · 组织架构 · 人才文化 · 安全合规</text><path class="house-v2-roof" d="M 570 42 L 1080 148 L 60 148 Z" filter="url(#roofShadow)"/><line class="house-v2-roof-line" x1="442.5" y1="68.5" x2="697.5" y2="68.5"/><line class="house-v2-roof-line" x1="315" y1="95" x2="825" y2="95"/><line class="house-v2-roof-line" x1="187.5" y1="121.5" x2="952.5" y2="121.5"/><rect class="house-v2-chimney" x="562" y="22" width="16" height="25" rx="2"/><circle class="house-v2-peak" cx="570" cy="17" r="8"/><text class="house-v2-roof-tag" x="570" y="82" text-anchor="middle">评估目标</text><text class="house-v2-roof-title" x="570" y="107" text-anchor="middle">数智化价值实现</text><text class="house-v2-roof-sub" x="570" y="127" text-anchor="middle">效率提升 · 成本优化 · 模式创新</text><rect class="house-v2-pillar-shadow" x="63" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="60" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="57" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="58" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="129.42857142857144" cy="192" r="13"/><text class="house-v2-pillar-idx" x="129.42857142857144" y="197" text-anchor="middle">01</text><text class="house-v2-pillar-name" x="129.42857142857144" y="221" text-anchor="middle">战略领导力</text><circle class="house-v2-bullet" cx="72" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="80" y="252">转型战略规划</text><circle class="house-v2-bullet" cx="72" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="80" y="282">高层推动力度</text><circle class="house-v2-bullet" cx="72" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="80" y="312">治理机制设计</text><rect class="house-v2-pillar-shadow" x="209.85714285714286" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="206.85714285714286" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="203.85714285714286" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="204.85714285714286" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="276.2857142857143" cy="192" r="13"/><text class="house-v2-pillar-idx" x="276.2857142857143" y="197" text-anchor="middle">02</text><text class="house-v2-pillar-name" x="276.2857142857143" y="221" text-anchor="middle">组织人才</text><circle class="house-v2-bullet" cx="218.85714285714286" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="226.85714285714286" y="252">组织设置</text><circle class="house-v2-bullet" cx="218.85714285714286" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="226.85714285714286" y="282">人才梯队</text><circle class="house-v2-bullet" cx="218.85714285714286" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="226.85714285714286" y="312">变革文化</text><rect class="house-v2-pillar-shadow" x="356.7142857142857" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="353.7142857142857" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="350.7142857142857" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="351.7142857142857" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="423.14285714285717" cy="192" r="13"/><text class="house-v2-pillar-idx" x="423.14285714285717" y="197" text-anchor="middle">03</text><text class="house-v2-pillar-name" x="423.14285714285717" y="221" text-anchor="middle">业务流程</text><circle class="house-v2-bullet" cx="365.7142857142857" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="373.7142857142857" y="252">业务线上化</text><circle class="house-v2-bullet" cx="365.7142857142857" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="373.7142857142857" y="282">流程集成度</text><circle class="house-v2-bullet" cx="365.7142857142857" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="373.7142857142857" y="312">体验数字化</text><rect class="house-v2-pillar-shadow" x="503.57142857142856" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="500.57142857142856" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="497.57142857142856" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="498.57142857142856" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="570" cy="192" r="13"/><text class="house-v2-pillar-idx" x="570" y="197" text-anchor="middle">04</text><text class="house-v2-pillar-name" x="570" y="221" text-anchor="middle">数据要素</text><circle class="house-v2-bullet" cx="512.5714285714286" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="520.5714285714286" y="252">数据资产化</text><circle class="house-v2-bullet" cx="512.5714285714286" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="520.5714285714286" y="282">治理体系</text><circle class="house-v2-bullet" cx="512.5714285714286" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="520.5714285714286" y="312">数据驱动</text><rect class="house-v2-pillar-shadow" x="650.4285714285714" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="647.4285714285714" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="644.4285714285714" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="645.4285714285714" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="716.8571428571429" cy="192" r="13"/><text class="house-v2-pillar-idx" x="716.8571428571429" y="197" text-anchor="middle">05</text><text class="house-v2-pillar-name" x="716.8571428571429" y="221" text-anchor="middle">技术架构</text><circle class="house-v2-bullet" cx="659.4285714285714" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="667.4285714285714" y="252">云原生平台</text><circle class="house-v2-bullet" cx="659.4285714285714" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="667.4285714285714" y="282">系统集成</text><circle class="house-v2-bullet" cx="659.4285714285714" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="667.4285714285714" y="312">架构现代化</text><rect class="house-v2-pillar-shadow" x="797.2857142857143" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="794.2857142857143" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="791.2857142857143" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="792.2857142857143" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="863.7142857142858" cy="192" r="13"/><text class="house-v2-pillar-idx" x="863.7142857142858" y="197" text-anchor="middle">06</text><text class="house-v2-pillar-name" x="863.7142857142858" y="221" text-anchor="middle">智能应用</text><circle class="house-v2-bullet" cx="806.2857142857143" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="814.2857142857143" y="252">AI场景覆盖</text><circle class="house-v2-bullet" cx="806.2857142857143" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="814.2857142857143" y="282">价值量化</text><circle class="house-v2-bullet" cx="806.2857142857143" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="814.2857142857143" y="312">AI治理</text><rect class="house-v2-pillar-shadow" x="944.1428571428571" y="169" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar" x="941.1428571428571" y="166" width="138.85714285714286" height="234" rx="4"/><rect class="house-v2-pillar-cap" x="938.1428571428571" y="160" width="144.85714285714286" height="10" rx="3"/><rect class="house-v2-pillar-base" x="939.1428571428571" y="397" width="142.85714285714286" height="8" rx="2"/><circle class="house-v2-pillar-idx-circle" cx="1010.5714285714286" cy="192" r="13"/><text class="house-v2-pillar-idx" x="1010.5714285714286" y="197" text-anchor="middle">07</text><text class="house-v2-pillar-name" x="1010.5714285714286" y="221" text-anchor="middle">价值生态</text><circle class="house-v2-bullet" cx="953.1428571428571" cy="248" r="2.5"/><text class="house-v2-pillar-kp" x="961.1428571428571" y="252">ROI度量</text><circle class="house-v2-bullet" cx="953.1428571428571" cy="278" r="2.5"/><text class="house-v2-pillar-kp" x="961.1428571428571" y="282">模式创新</text><circle class="house-v2-bullet" cx="953.1428571428571" cy="308" r="2.5"/><text class="house-v2-pillar-kp" x="961.1428571428571" y="312">生态协同</text>
+      </svg>
+    </div>
+    <div class="framework-note">
+      <span class="fn-label">框架说明：</span>该框架采用&quot;屋形&quot;结构：以价值实现为屋顶目标，七大核心能力为支柱，治理/组织/人才/安全为地基，系统评估企业数智化转型的完整能力体系。各维度相互支撑、协同演进。
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">02 成熟度评估结果</div><h2 class="stitle">核心指标速览——综合成熟度2.14分，处于L2单元级向L3流程级跨越关键期</h2></header>
+    <div class="metrics-v2-top">
+      <div class="m-grid-v2" style="--n:4">
+        
+          <div class="m-card-v2 hl">
+            <div class="m-v2-label">综合成熟度</div>
+            <div class="m-v2-val">2.14<span class="m-v2-unit">分</span></div>
+            <div class="m-v2-bench">行业均值：行业均值2.41</div>
+            
+          </div>
+          <div class="m-card-v2">
+            <div class="m-v2-label">当前定级</div>
+            <div class="m-v2-val">L2</div>
+            <div class="m-v2-bench">行业均值：目标：18个月达L3</div>
+            
+          </div>
+          <div class="m-card-v2">
+            <div class="m-v2-label">优势维度</div>
+            <div class="m-v2-val">3<span class="m-v2-unit">项</span></div>
+            <div class="m-v2-bench">行业均值：战略/组织/业务基础较好</div>
+            <div class="m-v2-trend up">▲ 高于均值</div>
+          </div>
+          <div class="m-card-v2">
+            <div class="m-v2-label">短板维度</div>
+            <div class="m-v2-val">4<span class="m-v2-unit">项</span></div>
+            <div class="m-v2-bench">行业均值：数据/技术/AI/价值待提升</div>
+            <div class="m-v2-trend down">▼ 低于均值</div>
+          </div>
+      </div>
+    </div>
+    
+    <div class="key-findings">
+      <div class="kf-title">关键发现</div>
+      <div class="kf-grid">
+        
+          <div class="kf-item">
+            <div class="kf-num">01</div>
+            <div class="kf-content">
+              <div class="kf-text">战略与组织基础扎实，高层共识是核心优势</div>
+              <div class="kf-implication">→ 董事长挂帅、三年规划发布、预算逐年增长，为系统性转型奠定了组织保障和资源基础</div>
+            </div>
+          </div>
+          <div class="kf-item">
+            <div class="kf-num">02</div>
+            <div class="kf-content">
+              <div class="kf-text">核心生产系统成熟，但跨系统协同不足</div>
+              <div class="kf-implication">→ TOS、ERP等核心系统深度应用，但20+系统烟囱式建设，形成数据孤岛，跨部门协同依赖人工</div>
+            </div>
+          </div>
+          <div class="kf-item">
+            <div class="kf-num">03</div>
+            <div class="kf-content">
+              <div class="kf-text">数据孤岛问题突出，成为最大瓶颈制约</div>
+              <div class="kf-implication">→ 数据标准不统一、主数据缺失、质量无考核，报表周期T+3，无法支撑实时运营决策</div>
+            </div>
+          </div>
+          <div class="kf-item">
+            <div class="kf-num">04</div>
+            <div class="kf-content">
+              <div class="kf-text">AI应用几乎空白，与头部企业差距显著</div>
+              <div class="kf-implication">→ 仅财务OCR试点，智能调度、预测维护等核心场景未涉及，作业效率依赖人工经验</div>
+            </div>
+          </div>
+          <div class="kf-item">
+            <div class="kf-num">05</div>
+            <div class="kf-content">
+              <div class="kf-text">技术架构滞后，云原生和中台能力薄弱</div>
+              <div class="kf-implication">→ 系统间点对点集成，无统一技术平台，算力资源分散，新功能上线周期平均3-6个月</div>
+            </div>
+          </div>
+          <div class="kf-item">
+            <div class="kf-num">06</div>
+            <div class="kf-content">
+              <div class="kf-text">价值度量体系缺失，投入产出难以量化</div>
+              <div class="kf-implication">→ 无ROI追踪框架，数字化价值无法显性化，影响持续投入信心和业务部门参与积极性</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">02 成熟度评估结果</div><h2 class="stitle">七维度成熟度雷达图——战略领先，AI应用短板最为突出</h2></header>
+    <div class="r-layout-v2">
+      <svg class="r-svg-v2" viewBox="0 0 500 460" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="rFillV2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--radar-fill-a)"/>
+            <stop offset="100%" stop-color="var(--radar-fill-b)"/>
+          </linearGradient>
+        </defs>
+        <polygon class="r-ring" points="250,204.4 273.1422118810537,215.54470186498148 278.85786620058195,240.5866196451069 262.8429586778797,260.6686784899116 237.15704132212028,260.6686784899116 221.14213379941802,240.5866196451069 226.8577881189463,215.5447018649815"/><polygon class="r-ring" points="250,174.8 296.2844237621074,197.08940372996298 307.71573240116396,247.17323929021381 275.68591735575944,287.3373569798232 224.31408264424056,287.3373569798232 192.28426759883604,247.17323929021381 203.71557623789263,197.08940372996298"/><polygon class="r-ring" points="250,145.2 319.42663564316103,178.63410559494446 336.5735986017459,253.75985893532072 288.52887603363916,314.0060354697348 211.47112396636084,314.0060354697348 163.4264013982541,253.75985893532072 180.57336435683897,178.6341055949445"/><polygon class="r-ring" points="250,115.6 342.56884752421473,160.17880745992596 365.4314648023279,260.34647858042763 301.3718347115189,340.6747139596464 198.6281652884811,340.6747139596464 134.56853519767208,260.34647858042763 157.43115247578527,160.17880745992596"/><polygon class="r-ring" points="250,86 365.71105940526843,141.72350932490744 394.2893310029099,266.93309822553454 314.2147933893986,367.343392449558 185.7852066106014,367.343392449558 105.7106689970901,266.93309822553454 134.28894059473157,141.72350932490747"/><line class="r-axis" x1="250" y1="234" x2="250" y2="86"/><line class="r-axis" x1="250" y1="234" x2="365.71105940526843" y2="141.72350932490744"/><line class="r-axis" x1="250" y1="234" x2="394.2893310029099" y2="266.93309822553454"/><line class="r-axis" x1="250" y1="234" x2="314.2147933893986" y2="367.343392449558"/><line class="r-axis" x1="250" y1="234" x2="185.7852066106014" y2="367.343392449558"/><line class="r-axis" x1="250" y1="234" x2="105.7106689970901" y2="266.93309822553454"/><line class="r-axis" x1="250" y1="234" x2="134.28894059473157" y2="141.72350932490747"/><text class="r-tick" x="258" y="207.4">L1</text><text class="r-tick" x="258" y="177.8">L2</text><text class="r-tick" x="258" y="148.2">L3</text><text class="r-tick" x="258" y="118.6">L4</text><text class="r-tick" x="258" y="89">L5</text>
+        <polygon class="r-peer" points="250,160 303.2270873264235,191.55281428945742 322.14466550145494,250.46654911276727 280.82310082691134,298.00482837578784 216.60830743751274,303.33856407377016 192.28426759883604,247.17323929021381 199.08713386168188,193.39834410295927"/>
+        <polygon class="r-target" points="250,130.4 324.05507801937176,174.94304596794075 345.2309584619205,255.73584482885278 288.52887603363916,314.0060354697348 206.33394049520896,324.67350686569944 169.19797463837045,252.44253500629935 180.57336435683897,178.6341055949445"/>
+        <polygon class="r-cur" points="250,151.12 307.8555297026342,187.86175466245373 316.37309226133857,249.1492251837459 274.40162148797145,284.67048913083204 221.7454909086646,292.6710926778055 215.37056055930162,241.90394357412828 208.34401861410336,200.78046335696666"/>
+        <circle class="r-dot" cx="250" cy="151.12" r="4"/><circle class="r-dot" cx="307.8555297026342" cy="187.86175466245373" r="4"/><circle class="r-dot" cx="316.37309226133857" cy="249.1492251837459" r="4"/><circle class="r-dot" cx="274.40162148797145" cy="284.67048913083204" r="4"/><circle class="r-dot" cx="221.7454909086646" cy="292.6710926778055" r="4"/><circle class="r-dot" cx="215.37056055930162" cy="241.90394357412828" r="4"/><circle class="r-dot" cx="208.34401861410336" cy="200.78046335696666" r="4"/><text class="r-label" x="250" y="38" text-anchor="middle">战略与领导力</text>
+      <text class="r-val high" x="250" y="54" text-anchor="middle">2.8<tspan class="r-vp"> / 均2.5</tspan></text><text class="r-label" x="400.98431870398963" y="108.7839172505581" text-anchor="start">组织与人才</text>
+      <text class="r-val high" x="400.98431870398963" y="124.7839172505581" text-anchor="start">2.5<tspan class="r-vp"> / 均2.3</tspan></text><text class="r-label" x="437.2864474901828" y="267.8339355837871" text-anchor="start">业务与流程</text>
+      <text class="r-val low" x="437.2864474901828" y="283.8339355837871" text-anchor="start">2.3<tspan class="r-vp"> / 均2.5</tspan></text><text class="r-label" x="335.5701429541009" y="395.3821471656548" text-anchor="start">数据要素</text>
+      <text class="r-val low" x="335.5701429541009" y="411.3821471656548" text-anchor="start">1.9<tspan class="r-vp"> / 均2.4</tspan></text><text class="r-label" x="164.4298570458991" y="395.3821471656548" text-anchor="end">技术与架构</text>
+      <text class="r-val low" x="164.4298570458991" y="411.3821471656548" text-anchor="end">2.2<tspan class="r-vp"> / 均2.6</tspan></text><text class="r-label" x="62.71355250981716" y="267.83393558378714" text-anchor="end">智能应用</text>
+      <text class="r-val low" x="62.71355250981716" y="283.83393558378714" text-anchor="end">1.2<tspan class="r-vp"> / 均2</tspan></text><text class="r-label" x="99.01568129601037" y="108.78391725055812" text-anchor="end">价值与生态</text>
+      <text class="r-val low" x="99.01568129601037" y="124.78391725055812" text-anchor="end">1.8<tspan class="r-vp"> / 均2.2</tspan></text>
+      </svg>
+      <div class="r-side-v2">
+        <div class="r-legend-v2">
+          <span><i class="lg-cur-v2"></i>本企业</span>
+          <span><i class="lg-peer-v2"></i>行业均值</span>
+          <span><i class="lg-target-v2"></i>目标水平</span>
+        </div>
+        <div class="rs-table">
+          <div class="rs-header">
+            <span>维度</span><span>成熟度得分</span><span>差距</span>
+          </div>
+          
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">战略与领导力</span>
+        <span class="rs-score">2.8</span>
+        <span class="rs-gap neu">+0.3</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:55.99999999999999%"></div>
+        <div class="rs-peer-mark" style="left:50%"></div>
+      </div>
+      <div class="rs-comment">三年规划已发布，高层共识度高，预算占比超行业均值</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">组织与人才</span>
+        <span class="rs-score">2.5</span>
+        <span class="rs-gap neu">+0.2</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:50%"></div>
+        <div class="rs-peer-mark" style="left:46%"></div>
+      </div>
+      <div class="rs-comment">专职数推办运作良好，但复合型人才缺口明显</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">业务与流程</span>
+        <span class="rs-score">2.3</span>
+        <span class="rs-gap neu">-0.2</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:46%"></div>
+        <div class="rs-peer-mark" style="left:50%"></div>
+      </div>
+      <div class="rs-comment">核心系统成熟，跨部门端到端流程尚未打通</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">数据要素</span>
+        <span class="rs-score">1.9</span>
+        <span class="rs-gap neg">-0.5</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:38%"></div>
+        <div class="rs-peer-mark" style="left:48%"></div>
+      </div>
+      <div class="rs-comment">数据孤岛严重，缺治理体系，是基础性短板</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">技术与架构</span>
+        <span class="rs-score">2.2</span>
+        <span class="rs-gap neg">-0.4</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:44.00000000000001%"></div>
+        <div class="rs-peer-mark" style="left:52%"></div>
+      </div>
+      <div class="rs-comment">烟囱式系统为主，无统一中台，云原生比例低</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">智能应用</span>
+        <span class="rs-score">1.2</span>
+        <span class="rs-gap neg">-0.8</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:24%"></div>
+        <div class="rs-peer-mark" style="left:40%"></div>
+      </div>
+      <div class="rs-comment">仅OCR试点，核心生产场景AI应用完全空白</div>
+    </div>
+    <div class="rs-row">
+      <div class="rs-row-top">
+        <span class="rs-name">价值与生态</span>
+        <span class="rs-score">1.8</span>
+        <span class="rs-gap neg">-0.4</span>
+      </div>
+      <div class="rs-bar-wrap">
+        <div class="rs-bar" style="width:36%"></div>
+        <div class="rs-peer-mark" style="left:44.00000000000001%"></div>
+      </div>
+      <div class="rs-comment">价值度量缺失，口岸生态协同尚未起步</div>
+    </div>
+        </div>
+        <div class="r-summary">综合得分2.14/5.0，较行业均值2.41存在0.27分差距。呈现&quot;头重脚轻&quot;特征：战略组织层表现较好，但数据、AI等执行层能力严重滞后，形成&quot;战略-执行断层&quot;。</div>
+      </div>
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">02 成熟度评估结果</div><h2 class="stitle">优势维度深度分析——已建立良好基础的能力领域</h2></header>
+    <div class="dim-v3-grid strengths-grid">
+      
+        <div class="dim-v3-card strong">
+          <div class="dim-v3-header">
+            <div class="dim-v3-score">
+              <span class="dvs-num">2.8</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">战略与领导力</div>
+              <div class="dvt-tag strong-tag">L2+ 接近L3</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>现状概述</div>
+              <div class="dv3-sc">集团层面已发布三年数字化转型战略，成立由董事长挂帅的数字化转型领导小组，转型预算逐年增长，C级管理层共识度高</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">✓</span>关键证据</div>
+              <ul class="dv3-evidence">
+                <li>已发布《数字化转型三年规划(2025-2027)》</li><li>数字化转型领导小组每季度召开推进会</li><li>年度数字化预算占营收1.2%，高于行业平均0.8%</li><li>将数字化KPI纳入部门负责人考核</li>
+              </ul>
+            </div>
+            
+            <div class="dv3-sec dv3-value-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">★</span>业务价值</div>
+              <div class="dv3-sc dv3-value">高层共识和战略定力是转型成功的首要条件，为后续系统性变革提供了组织保障和资源基础</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="dim-v3-card strong">
+          <div class="dim-v3-header">
+            <div class="dim-v3-score">
+              <span class="dvs-num">2.5</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">组织与人才</div>
+              <div class="dvt-tag strong-tag">L2 单元级</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>现状概述</div>
+              <div class="dv3-sc">已设立数字化推进办公室（15人专职团队），各业务部门设有数字化对接人，年度数字化培训覆盖核心管理层</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">✓</span>关键证据</div>
+              <ul class="dv3-evidence">
+                <li>数字化推进办公室独立运作，直接向CIO汇报</li><li>已建立内部数字化人才认证体系</li><li>每年组织2次中高层数字化认知培训</li><li>核心业务部门IT人员配比达1:20</li>
+              </ul>
+            </div>
+            
+            <div class="dv3-sec dv3-value-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">★</span>业务价值</div>
+              <div class="dv3-sc dv3-value">专职团队和对接人机制保障了转型举措的落地执行，人才意识培养初见成效</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="dim-v3-card strong">
+          <div class="dim-v3-header">
+            <div class="dim-v3-score">
+              <span class="dvs-num">2.3</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">业务与流程</div>
+              <div class="dvt-tag strong-tag">L2 单元级</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>现状概述</div>
+              <div class="dv3-sc">核心生产系统（TOS码头操作系统、ERP）已成熟应用，码头作业、堆场管理等核心流程数字化覆盖率达80%</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">✓</span>关键证据</div>
+              <ul class="dv3-evidence">
+                <li>TOS系统覆盖所有集装箱码头作业</li><li>ERP系统实现财务、采购、HR一体化</li><li>电子单证覆盖率达70%</li><li>客户服务线上化率65%</li>
+              </ul>
+            </div>
+            
+            <div class="dv3-sec dv3-value-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">★</span>业务价值</div>
+              <div class="dv3-sc dv3-value">核心生产系统的成熟应用为后续跨部门流程集成和数据驱动奠定了业务基础</div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">02 成熟度评估结果</div><h2 class="stitle">短板维度深度分析——制约价值释放的核心瓶颈</h2></header>
+    <div class="dim-v3-grid weaknesses-grid">
+      
+        <div class="dim-v3-card weak">
+          <div class="dim-v3-header weak-hdr">
+            <div class="dim-v3-score weak-score">
+              <span class="dvs-num">1.2</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">智能应用</div>
+              <div class="dvt-tag weak-tag">差距 较行业均值低0.8分</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>当前现状</div>
+              <div class="dv3-sc">AI应用几乎空白，仅在财务OCR有试点，生产运营、客户服务、决策支持等核心场景未引入AI</div>
+            </div>
+            <div class="dv3-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">!</span>主要差距</div>
+              <div class="dv3-sc danger-sc">行业头部港口已在智能调度、设备预测维护、智能闸口等场景实现规模化AI应用，效率提升15-30%</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">→</span>根本原因</div>
+              <div class="dv3-sc">①数据基础薄弱无法支撑AI建模；②业务部门对AI场景价值认知不足；③缺乏AI专业团队和方法论</div>
+            </div>
+            
+            <div class="dv3-sec dv3-impact-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">⚡</span>业务影响</div>
+              <div class="dv3-sc dv3-impact">作业效率依赖人工经验，设备非计划停机率高（8% vs 行业5%），高峰期拥堵频发，运营成本居高不下</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="dim-v3-card weak">
+          <div class="dim-v3-header weak-hdr">
+            <div class="dim-v3-score weak-score">
+              <span class="dvs-num">1.9</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">数据要素</div>
+              <div class="dvt-tag weak-tag">差距 较行业均值低0.5分</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>当前现状</div>
+              <div class="dv3-sc">数据分散在20+独立系统中，数据标准不统一，主数据管理缺失，数据质量问题突出，跨系统数据共享困难</div>
+            </div>
+            <div class="dv3-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">!</span>主要差距</div>
+              <div class="dv3-sc danger-sc">行业领先企业已建成统一数据中台，数据可用率达90%+，支撑实时决策和智能应用</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">→</span>根本原因</div>
+              <div class="dv3-sc">①缺乏企业级数据治理组织和流程；②无统一数据平台，系统间点对点集成；③数据质量无人负责，无考核机制</div>
+            </div>
+            
+            <div class="dv3-sec dv3-impact-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">⚡</span>业务影响</div>
+              <div class="dv3-sc dv3-impact">数据不一致导致决策偏差，跨部门协同依赖人工对账，报表产出周期长（T+3），无法支撑实时运营</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="dim-v3-card weak">
+          <div class="dim-v3-header weak-hdr">
+            <div class="dim-v3-score weak-score">
+              <span class="dvs-num">1.8</span>
+              <span class="dvs-lbl">得分</span>
+            </div>
+            <div class="dim-v3-title">
+              <div class="dvt-name">价值与生态</div>
+              <div class="dvt-tag weak-tag">差距 较行业均值低0.4分</div>
+            </div>
+          </div>
+          <div class="dim-v3-body">
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">▸</span>当前现状</div>
+              <div class="dv3-sc">数字化投入价值难以量化，未建立ROI度量体系，数据价值未变现，口岸生态协同尚未起步</div>
+            </div>
+            <div class="dv3-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">!</span>主要差距</div>
+              <div class="dv3-sc danger-sc">领先港口已通过数据服务、智慧口岸协同等模式创造新收入，数字化贡献营收占比达5-8%</div>
+            </div>
+            
+            <div class="dv3-sec">
+              <div class="dv3-st"><span class="dv3-st-ico">→</span>根本原因</div>
+              <div class="dv3-sc">①缺少价值度量框架和追踪机制；②数据未资产化，无对外服务能力；③口岸单位协同机制缺失</div>
+            </div>
+            
+            <div class="dv3-sec dv3-impact-sec">
+              <div class="dv3-st danger-st"><span class="dv3-st-ico">⚡</span>业务影响</div>
+              <div class="dv3-sc dv3-impact">持续投入信心不足，数字化价值无法显性化，错失港口生态主导权和数据变现机会</div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">03 差距诊断与根因分析</div><h2 class="stitle">维度差距量化对比——智能应用差距0.8分为最大短板</h2></header>
+    <div class="b-v3-layout">
+      <div class="b-v3-left">
+        <div class="comparison-note">对比基准：本企业得分基于30+高管访谈、50+份问卷、系统调研综合评定；行业均值基于国内15家同等规模港口集团2025年调研数据</div>
+        <div class="b-v3-chart">
+          <div class="b-v3-header">
+            <span class="b-v3-h-lbl">维度</span>
+            <span class="b-v3-h-track">成熟度等级</span>
+            <span class="b-v3-h-val">得分/差距</span>
+          </div>
+          <div class="b-v3-row">
+      <div class="b-v3-lbl">战略与领导力</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:55.99999999999999%"></div>
+          <div class="b-v3-peer" style="left:50%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>2.8</b><span class="b-v3-gap neu">+0.3</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">组织与人才</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:50%"></div>
+          <div class="b-v3-peer" style="left:46%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>2.5</b><span class="b-v3-gap neu">+0.2</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">业务与流程</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:46%"></div>
+          <div class="b-v3-peer" style="left:50%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>2.3</b><span class="b-v3-gap neu">-0.2</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">技术与架构</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:44.00000000000001%"></div>
+          <div class="b-v3-peer" style="left:52%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>2.2</b><span class="b-v3-gap neg">-0.4</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">价值与生态</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:36%"></div>
+          <div class="b-v3-peer" style="left:44.00000000000001%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>1.8</b><span class="b-v3-gap neg">-0.4</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">数据要素</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:38%"></div>
+          <div class="b-v3-peer" style="left:48%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>1.9</b><span class="b-v3-gap neg">-0.5</span></div>
+    </div><div class="b-v3-row">
+      <div class="b-v3-lbl">智能应用</div>
+      <div class="b-v3-track-wrap">
+        <div class="b-v3-scale"><span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span></div>
+        <div class="b-v3-track">
+          <div class="b-v3-fill" style="width:24%"></div>
+          <div class="b-v3-peer" style="left:40%"></div>
+        </div>
+      </div>
+      <div class="b-v3-val"><b>1.2</b><span class="b-v3-gap neg">-0.8</span></div>
+    </div>
+        </div>
+        <div class="gap-interpretation-v2"><b>差距解读：</b>差距呈现&quot;执行层&gt;战略层&quot;特征：战略和组织（顶层）差距较小甚至领先，但数据、AI等执行层面差距显著，形成典型的&quot;战略-执行断层&quot;。智能应用1.2分与行业2.0分的0.8分差距是当前最突出短板，直接制约价值释放；数据要素1.9分是基础性瓶颈，不解决数据问题，AI和价值实现无从谈起。</div>
+      </div>
+      
+      <div class="b-v3-right">
+        <div class="bench-title">
+          <span class="bench-title-ico">★</span>
+          <span>优秀企业对标实践</span>
+        </div>
+        <div class="bench-cases-grid">
+    <div class="bench-case-card">
+      <div class="bcc-head">
+        <div class="bcc-name">新加坡港PSA</div>
+        <div class="bcc-score">4.2<span class="bcc-slash">/5.0</span></div>
+      </div>
+      <div class="bcc-level">L4 网络级（全球标杆）</div>
+      <div class="bcc-practices">
+        <div class="bcc-p"><span class="bcc-p-dot"></span>建成统一数据湖，200+AI场景规模化运营</div><div class="bcc-p"><span class="bcc-p-dot"></span>智能调度系统使船舶周转效率提升40%</div><div class="bcc-p"><span class="bcc-p-dot"></span>数字孪生码头实现全流程仿真优化</div><div class="bcc-p"><span class="bcc-p-dot"></span>数据服务API对外开放，年创收超2亿美元</div>
+      </div>
+    </div>
+  
+    <div class="bench-case-card">
+      <div class="bcc-head">
+        <div class="bcc-name">上海港集团</div>
+        <div class="bcc-score">3.5<span class="bcc-slash">/5.0</span></div>
+      </div>
+      <div class="bcc-level">L3+ 流程级领先</div>
+      <div class="bcc-practices">
+        <div class="bcc-p"><span class="bcc-p-dot"></span>数据中台整合30+业务系统，数据可用率95%</div><div class="bcc-p"><span class="bcc-p-dot"></span>洋山四期全自动化码头，AI调度全覆盖</div><div class="bcc-p"><span class="bcc-p-dot"></span>设备预测性维护降低非计划停机率至3%</div><div class="bcc-p"><span class="bcc-p-dot"></span>口岸单位数据协同效率提升60%</div>
+      </div>
+    </div>
+  
+    <div class="bench-case-card">
+      <div class="bcc-head">
+        <div class="bcc-name">招商局港口</div>
+        <div class="bcc-score">3.1<span class="bcc-slash">/5.0</span></div>
+      </div>
+      <div class="bcc-level">L3 流程级（国内先进）</div>
+      <div class="bcc-practices">
+        <div class="bcc-p"><span class="bcc-p-dot"></span>&quot;一体三翼&quot;数字化治理架构，CTO直管</div><div class="bcc-p"><span class="bcc-p-dot"></span>6大核心业务平台实现跨港区协同</div><div class="bcc-p"><span class="bcc-p-dot"></span>智能闸口覆盖率100%，集卡停留时间降50%</div><div class="bcc-p"><span class="bcc-p-dot"></span>建立数字化价值度量体系，ROI可追踪</div>
+      </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">03 差距诊断与根因分析</div><h2 class="stitle">核心短板根因诊断——MECE逻辑树拆解与优先级排序</h2></header>
+    <div class="it-v2-wrap" style="--w:1140px;--h:440px">
+      <svg class="it-v2-svg" viewBox="0 0 1140 440" preserveAspectRatio="xMidYMid meet">
+        <path class="it-v2-line" d="M 570 95 Q 570 120 130 170"/><line class="it-v2-line-l2" x1="130" y1="215" x2="130" y2="324"/><line class="it-v2-line-l2" x1="130" y1="215" x2="130" y2="366"/><line class="it-v2-line-l2" x1="130" y1="215" x2="130" y2="408"/><line class="it-v2-line-l2" x1="130" y1="215" x2="130" y2="450"/><path class="it-v2-line" d="M 570 95 Q 570 120 350 170"/><line class="it-v2-line-l2" x1="350" y1="215" x2="350" y2="324"/><line class="it-v2-line-l2" x1="350" y1="215" x2="350" y2="366"/><line class="it-v2-line-l2" x1="350" y1="215" x2="350" y2="408"/><line class="it-v2-line-l2" x1="350" y1="215" x2="350" y2="450"/><path class="it-v2-line" d="M 570 95 Q 570 120 570 170"/><line class="it-v2-line-l2" x1="570" y1="215" x2="570" y2="324"/><line class="it-v2-line-l2" x1="570" y1="215" x2="570" y2="366"/><line class="it-v2-line-l2" x1="570" y1="215" x2="570" y2="408"/><line class="it-v2-line-l2" x1="570" y1="215" x2="570" y2="450"/><path class="it-v2-line" d="M 570 95 Q 570 120 790 170"/><line class="it-v2-line-l2" x1="790" y1="215" x2="790" y2="324"/><line class="it-v2-line-l2" x1="790" y1="215" x2="790" y2="366"/><line class="it-v2-line-l2" x1="790" y1="215" x2="790" y2="408"/><line class="it-v2-line-l2" x1="790" y1="215" x2="790" y2="450"/><path class="it-v2-line" d="M 570 95 Q 570 120 1010 170"/><line class="it-v2-line-l2" x1="1010" y1="215" x2="1010" y2="324"/><line class="it-v2-line-l2" x1="1010" y1="215" x2="1010" y2="366"/><line class="it-v2-line-l2" x1="1010" y1="215" x2="1010" y2="408"/><line class="it-v2-line-l2" x1="1010" y1="215" x2="1010" y2="450"/>
+      </svg>
+      <div class="it-v2-problem" style="left:430px;top:25px">
+    <div class="it-v2-p-tag">核心问题</div>
+    <div class="it-v2-p-title">数据孤岛严重、AI场景空白制约数智化价值释放</div>
+  </div><div class="it-v2-l1 p0" style="left:32px;top:145px;width:196px">
+      <span class="it-v2-prio p0">P0</span>
+      <div class="it-v2-l1-title">数据治理体系缺失</div>
+      <div class="it-v2-l1-impact">影响：影响所有维度</div>
+    </div><div class="it-v2-l2" style="left:24px;top:330px;width:212px">
+        无企业级数据标准
+      </div><div class="it-v2-l2" style="left:24px;top:372px;width:212px">
+        缺少数据治理组织
+      </div><div class="it-v2-l2" style="left:24px;top:414px;width:212px">
+        数据质量无考核
+      </div><div class="it-v2-l2" style="left:24px;top:456px;width:212px">
+        主数据管理空白
+      </div><div class="it-v2-l1 p0" style="left:252px;top:145px;width:196px">
+      <span class="it-v2-prio p0">P0</span>
+      <div class="it-v2-l1-title">AI场景方法论缺失</div>
+      <div class="it-v2-l1-impact">影响：直接影响价值实现</div>
+    </div><div class="it-v2-l2" style="left:244px;top:330px;width:212px">
+        业务痛点未系统梳理
+      </div><div class="it-v2-l2" style="left:244px;top:372px;width:212px">
+        AI技术认知不足
+      </div><div class="it-v2-l2" style="left:244px;top:414px;width:212px">
+        缺少场景筛选机制
+      </div><div class="it-v2-l2" style="left:244px;top:456px;width:212px">
+        无POC快速验证流程
+      </div><div class="it-v2-l1 p1" style="left:472px;top:145px;width:196px">
+      <span class="it-v2-prio p1">P1</span>
+      <div class="it-v2-l1-title">技术平台底座薄弱</div>
+      <div class="it-v2-l1-impact">影响：制约规模化推广</div>
+    </div><div class="it-v2-l2" style="left:464px;top:330px;width:212px">
+        系统烟囱式建设
+      </div><div class="it-v2-l2" style="left:464px;top:372px;width:212px">
+        无统一集成平台
+      </div><div class="it-v2-l2" style="left:464px;top:414px;width:212px">
+        算力资源分散
+      </div><div class="it-v2-l2" style="left:464px;top:456px;width:212px">
+        云原生架构未落地
+      </div><div class="it-v2-l1 p1" style="left:692px;top:145px;width:196px">
+      <span class="it-v2-prio p1">P1</span>
+      <div class="it-v2-l1-title">复合型人才断层</div>
+      <div class="it-v2-l1-impact">影响：长期能力建设</div>
+    </div><div class="it-v2-l2" style="left:684px;top:330px;width:212px">
+        业务不懂技术
+      </div><div class="it-v2-l2" style="left:684px;top:372px;width:212px">
+        技术不懂业务
+      </div><div class="it-v2-l2" style="left:684px;top:414px;width:212px">
+        AI专业团队缺失
+      </div><div class="it-v2-l2" style="left:684px;top:456px;width:212px">
+        激励机制不匹配
+      </div><div class="it-v2-l1 p2" style="left:912px;top:145px;width:196px">
+      <span class="it-v2-prio p2">P2</span>
+      <div class="it-v2-l1-title">价值度量体系空白</div>
+      <div class="it-v2-l1-impact">影响：影响持续投入</div>
+    </div><div class="it-v2-l2" style="left:904px;top:330px;width:212px">
+        无价值评估框架
+      </div><div class="it-v2-l2" style="left:904px;top:372px;width:212px">
+        ROI难以量化追踪
+      </div><div class="it-v2-l2" style="left:904px;top:414px;width:212px">
+        成功标准不清晰
+      </div><div class="it-v2-l2" style="left:904px;top:456px;width:212px">
+        业务价值认同度低
+      </div>
+    </div>
+    <div class="root-conclusion">根因诊断结论：数据治理缺失是&quot;因&quot;，AI场景空白是&quot;果&quot;，复合型人才短缺和价值度量空白是持续制约因素。建议按照&quot;数据筑基→AI破局→平台赋能→价值闭环&quot;的路径推进，优先解决数据治理和AI高价值场景两大P0级问题。</div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">04 改进举措与路线图</div><h2 class="stitle">三阶段实施路线图——筑基→跃升→引领，18个月达成L3流程级</h2></header>
+    <div class="roadmap-summary">整体策略：&quot;短期速赢建立信心→中期体系化构建能力→长期创新引领发展&quot;。18个月内实现从L2单元级到L3流程级的跨越，综合成熟度提升至3.0+，重点打造&quot;数据驱动+智能运营&quot;两大核心能力。</div>
+    
+    <!-- 时间轴 -->
+    <div class="rm-timeline">
+      <div class="rm-tl-line"></div>
+      
+        <div class="rm-tl-phase" style="left:0%;width:16.666666666666664%">
+          <div class="rm-tl-bar" style="background:var(--s1)"></div>
+          <div class="rm-tl-dot" style="background:var(--s1)"></div>
+          <div class="rm-tl-label">短期·筑基</div>
+          <div class="rm-tl-time">0-3个月</div>
+        </div>
+        <div class="rm-tl-phase" style="left:16.666666666666664%;width:50%">
+          <div class="rm-tl-bar" style="background:var(--brand2)"></div>
+          <div class="rm-tl-dot" style="background:var(--brand2)"></div>
+          <div class="rm-tl-label">中期·跃升</div>
+          <div class="rm-tl-time">3-12个月</div>
+        </div>
+        <div class="rm-tl-phase" style="left:66.66666666666666%;width:33.33333333333333%">
+          <div class="rm-tl-bar" style="background:var(--s4)"></div>
+          <div class="rm-tl-dot" style="background:var(--s4)"></div>
+          <div class="rm-tl-label">长期·引领</div>
+          <div class="rm-tl-time">12-18个月</div>
+        </div>
+      <!-- 月份刻度 -->
+      <div class="rm-tl-months">
+        <span style="left:0%">0月</span><span style="left:16.666666666666664%">3月</span><span style="left:33.33333333333333%">6月</span><span style="left:50%">9月</span><span style="left:66.66666666666666%">12月</span><span style="left:83.33333333333334%">15月</span><span style="left:100%">18月</span>
+      </div>
+    </div>
+    
+    <!-- 详细内容卡片 -->
+    <div class="rm-cards">
+      
+        <div class="rm-card" style="border-top-color:var(--s1)">
+          <div class="rm-card-head">
+            <span class="rm-card-num" style="color:var(--s1)">01</span>
+            <div class="rm-card-title-area">
+              <div class="rm-card-phase">短期·筑基</div>
+              <div class="rm-card-time">0-3个月</div>
+            </div>
+            <div class="rm-card-inv">投入：约1300万</div>
+          </div>
+          <div class="rm-card-objective">
+            <span class="rm-obj-label">目标</span>
+            <span class="rm-obj-text">顶层设计完成，启动数据治理，2个高价值AI场景POC快速见效，建立变革信心</span>
+          </div>
+          
+          <div class="rm-card-ms">
+            <div class="rm-ms-title">关键里程碑</div>
+            <div class="rm-ms-list">
+              <div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>完成转型顶层规划设计</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>成立数据治理委员会</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>发布数据标准V1.0</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>设备预测维护POC启动</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>智能调度POC启动</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s1)"></span>首批速赢项目见效</div>
+            </div>
+          </div>
+          
+          <div class="rm-card-deliv">
+            <span class="rm-deliv-label">交付物：</span>转型顶层规划、数据治理方案、AI场景POC成果
+          </div>
+        </div>
+      
+        <div class="rm-card" style="border-top-color:var(--brand2)">
+          <div class="rm-card-head">
+            <span class="rm-card-num" style="color:var(--brand2)">02</span>
+            <div class="rm-card-title-area">
+              <div class="rm-card-phase">中期·跃升</div>
+              <div class="rm-card-time">3-12个月</div>
+            </div>
+            <div class="rm-card-inv">投入：约3200万</div>
+          </div>
+          <div class="rm-card-objective">
+            <span class="rm-obj-label">目标</span>
+            <span class="rm-obj-text">数据平台建成投用，核心流程端到端贯通，5+AI场景规模化落地，能力体系化</span>
+          </div>
+          
+          <div class="rm-card-ms">
+            <div class="rm-ms-title">关键里程碑</div>
+            <div class="rm-ms-list">
+              <div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>数据平台一期上线</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>核心主数据治理完成</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>TOS-ERP端到端贯通</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>5个AI场景生产化</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>数字化人才梯队成型</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--brand2)"></span>价值度量体系建立</div>
+            </div>
+          </div>
+          
+          <div class="rm-card-deliv">
+            <span class="rm-deliv-label">交付物：</span>数据中台一期、核心流程贯通、AI场景规模化应用
+          </div>
+        </div>
+      
+        <div class="rm-card" style="border-top-color:var(--s4)">
+          <div class="rm-card-head">
+            <span class="rm-card-num" style="color:var(--s4)">03</span>
+            <div class="rm-card-title-area">
+              <div class="rm-card-phase">长期·引领</div>
+              <div class="rm-card-time">12-18个月</div>
+            </div>
+            <div class="rm-card-inv">投入：约2000万</div>
+          </div>
+          <div class="rm-card-objective">
+            <span class="rm-obj-label">目标</span>
+            <span class="rm-obj-text">数据资产化运营，口岸生态协同起步，能力对外输出，达成L3流程级</span>
+          </div>
+          
+          <div class="rm-card-ms">
+            <div class="rm-ms-title">关键里程碑</div>
+            <div class="rm-ms-list">
+              <div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>数据资产目录发布</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>数据服务API上线</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>口岸数据协同启动</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>AI自主决策闭环</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>对外输出解决方案</div><div class="rm-ms-item"><span class="rm-ms-dot" style="background:var(--s4)"></span>综合成熟度达3.0+</div>
+            </div>
+          </div>
+          
+          <div class="rm-card-deliv">
+            <span class="rm-deliv-label">交付物：</span>数据资产运营体系、口岸协同平台、能力输出产品
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide">
+    <header class="shead"><div class="kicker">04 改进举措与路线图</div><h2 class="stitle">关键举措优先级矩阵——影响×难度二维排序，聚焦高价值快赢</h2></header>
+    
+    <!-- 举措矩阵 -->
+    <div class="init-matrix-wrap">
+      <div class="init-matrix">
+        <div class="im-y-label">业务影响</div>
+        <div class="im-x-label">实施难度</div>
+        <div class="im-grid">
+          <div class="im-cell im-q1">
+            <div class="im-q-title">快速赢取</div>
+            <div class="im-q-desc">高影响·低难度</div>
+          </div>
+          <div class="im-cell im-q2">
+            <div class="im-q-title">战略举措</div>
+            <div class="im-q-desc">高影响·高难度</div>
+          </div>
+          <div class="im-cell im-q3">
+            <div class="im-q-title">基础建设</div>
+            <div class="im-q-desc">低影响·低难度</div>
+          </div>
+          <div class="im-cell im-q4">
+            <div class="im-q-title">审慎推进</div>
+            <div class="im-q-desc">低影响·高难度</div>
+          </div>
+          <!-- 举措点 -->
+          <div class="im-dot p1 q2" style="left:62.5%;top:12.5%" title="统一数据中台建设">01</div><div class="im-dot p1 q2" style="left:75%;top:17.5%" title="核心流程端到端贯通">02</div><div class="im-dot p1 q1" style="left:12.5%;top:12.5%" title="数字化人才梯队建设">03</div><div class="im-dot p2 q3" style="left:12.5%;top:62.5%" title="价值度量体系建立">04</div><div class="im-dot p2 q4" style="left:62.5%;top:62.5%" title="口岸数据协同平台">05</div><div class="im-dot p0 q1" style="left:25%;top:17.5%" title="数据治理专项行动">06</div><div class="im-dot p0 q1" style="left:37.5%;top:12.5%" title="AI高价值场景快速突破">07</div>
+        </div>
+      </div>
+      
+      <!-- 举措列表 -->
+      <div class="init-list">
+        <div class="il-header">
+          <span>优先级</span>
+          <span>关键举措</span>
+          <span>预期价值</span>
+          <span>时间窗口</span>
+        </div>
+        
+          <div class="il-row">
+            <span class="il-prio p1">P1</span>
+            <div class="il-name-area">
+              <div class="il-name">统一数据中台建设</div>
+              <div class="il-desc">构建企业级数据平台，实现数据统一采集、存储、计算、服务</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">支撑全集团数据共享</div>
+              <div class="il-roi">ROI：1:3</div>
+            </div>
+            <div class="il-time">3-12个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p1">P1</span>
+            <div class="il-name-area">
+              <div class="il-name">核心流程端到端贯通</div>
+              <div class="il-desc">TOS-ERP-财务-客户全流程打通，消除流程断点</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">流程效率提升30%</div>
+              <div class="il-roi">ROI：1:2.5</div>
+            </div>
+            <div class="il-time">6-12个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p1">P1</span>
+            <div class="il-name-area">
+              <div class="il-name">数字化人才梯队建设</div>
+              <div class="il-desc">培养业务+技术+AI复合型人才，建立数字化人才认证体系</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">人才自给率达80%</div>
+              <div class="il-roi">ROI：长期</div>
+            </div>
+            <div class="il-time">3-18个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p2">P2</span>
+            <div class="il-name-area">
+              <div class="il-name">价值度量体系建立</div>
+              <div class="il-desc">建立数字化项目ROI度量框架和追踪机制</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">投入价值显性化</div>
+              <div class="il-roi">ROI：-</div>
+            </div>
+            <div class="il-time">6-9个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p2">P2</span>
+            <div class="il-name-area">
+              <div class="il-name">口岸数据协同平台</div>
+              <div class="il-desc">联合海关、海事、物流企业构建口岸数据共享生态</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">口岸效率提升20%</div>
+              <div class="il-roi">ROI：生态价值</div>
+            </div>
+            <div class="il-time">12-18个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p0">P0</span>
+            <div class="il-name-area">
+              <div class="il-name">数据治理专项行动</div>
+              <div class="il-desc">建立企业级数据治理组织、标准、流程，启动核心主数据治理</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">数据可用率提升至90%+</div>
+              <div class="il-roi">ROI：1:4</div>
+            </div>
+            <div class="il-time">0-6个月</div>
+          </div>
+          <div class="il-row">
+            <span class="il-prio p0">P0</span>
+            <div class="il-name-area">
+              <div class="il-name">AI高价值场景快速突破</div>
+              <div class="il-desc">设备预测维护、智能调度2个场景POC→生产化，快速验证价值</div>
+            </div>
+            <div class="il-value">
+              <div class="il-val-main">作业效率提升15%+</div>
+              <div class="il-roi">ROI：1:5</div>
+            </div>
+            <div class="il-time">0-6个月</div>
+          </div>
+      </div>
+    </div>
+    
+    
+    <div class="expected-outcome">
+      <span class="eo-label">整体预期：</span>18个月整体预期：综合成熟度从2.14提升至3.0+，达到L3流程级；运营效率提升20%，设备非计划停机率降低40%，库存周转率提升25%，数字化转型投入ROI达1:3，新业务（数据服务）年收入贡献超5000万。
+    </div>
+  
+    <div class="foot-mark"></div>
+  </section>
+<section class="slide ending">
+    <div class="end-band"></div>
+    <div class="end-body">
+      <div class="end-thanks">THANK YOU</div>
+      <h1 class="end-title">谢 谢</h1>
+      <p class="end-sub">数智化转型是一场长期主义的变革</p>
+      <p class="end-contact">如有任何问题，请联系数智咨询实验室</p>
+      <div class="end-meta"><span>数智咨询实验室</span> <i>|</i> <span>DIGINTEL LAB</span> <i>|</i> <span>2026年8月</span></div>
+    </div>
+  
+    
+  </section>
+</div></div>
+<div class="hint">← → 翻页 · 点击左右 1/3 区域翻页 · F11 全屏</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck');
+  var total=slides.length;
+  function go(n){
+    n=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,i){s.classList.toggle('active',i===n)});
+    slides.forEach(function(s){
+      var old=s.querySelector('.pg-num');
+      if(old)old.remove();
+    });
+    var cur=slides[n];
+    var pg=document.createElement('div');
+    pg.className='pg-num';
+    pg.style.cssText='position:absolute;bottom:4px;right:56px;font-family:"JetBrains Mono",Consolas,monospace;font-size:9.5px;color:#64748b;letter-spacing:1px';
+    pg.innerHTML='<b style="color:var(--brand2)">'+String(n+1).padStart(2,'0')+'</b> / '+String(total).padStart(2,'0');
+    cur.appendChild(pg);
+  }
+  function fit(){
+    var s=Math.min(window.innerWidth/1280,window.innerHeight/720)*0.96;
+    deck.style.transform='scale('+s+')';
+    deck.style.transformOrigin='center center';
+  }
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();var i=slides.findIndex(function(s){return s.classList.contains('active')});go(i+1)}
+    if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>=0){e.preventDefault();var i=slides.findIndex(function(s){return s.classList.contains('active')});go(i-1)}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(total-1);
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#deck')||e.target===document.body){
+      var i=slides.findIndex(function(s){return s.classList.contains('active')});
+      if(e.clientX>window.innerWidth*0.66)go(i+1);
+      else if(e.clientX<window.innerWidth*0.34)go(i-1);
+    }
+  });
+  fit();go(0);
+})();
+</script>
+</body>
+</html>

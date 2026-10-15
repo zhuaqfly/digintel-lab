@@ -20,6 +20,10 @@ desktop.ini
 *.secret
 credentials.json
 
+# 业务数据（咨询项目与企业信息，含客户敏感数据）
+projects/
+output/
+
 # 构建产物
 node_modules/
 dist/
